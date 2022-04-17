@@ -1,20 +1,21 @@
 import React from "react";
+import classes from "./Profile.module.css";
 
 const Profile = () => {
   return (
-    <div className="content">
-        <div className="content__top-img">
+    <div className={classes.content}>
+        <div className={classes.top_img}>
           <img src="https://media-be.chewy.com/wp-content/uploads/2019/07/05151036/bringing-home-a-pug-1024x563.jpg" />
         </div>
-        <div className="profile">
-          <div className="profile__avatar">
+        <div className={classes.profile}>
+          <div className={classes.avatar}>
             <img src="https://cdn-prd.content.metamorphosis.com/wp-content/uploads/sites/2/2020/01/shutterstock_1268241238-2-768x512.jpg" />
           </div>
-          <div className="profile__info">
-            <div className="profile__info_title">
-              <p>Alisher iskakov</p>
+          <div className={classes.info}>
+            <div className={classes.title}>
+              <h3>Alisher iskakov</h3>
             </div>
-            <div className="profile__info_special">
+            <div className={classes.descriptio}>
               <div>Date of Birth:</div>
               <div>City:</div>
               <div>Education:</div>
