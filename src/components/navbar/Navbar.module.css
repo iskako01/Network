@@ -1,23 +1,25 @@
-.nav{
-	grid-area: nav;
-	background-color: rgba(31, 24, 84, 0.328);
-	
+.nav {
+  grid-area: nav;
+  background-color: rgba(31, 24, 84, 0.328);
 }
-.items{
-	padding:10px;
+.items {
+  padding: 10px;
 }
-.item{
-	margin-bottom:12px ;
+.item {
+  margin-bottom: 12px;
 }
-.settings{
-	margin-top:24px ;
+.settings {
+  margin-top: 24px;
 }
-.item a{
-	color: #fff;
-	text-decoration: none;
-	font-size: 20px;
+.item a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 20px;
 }
-.item a:hover{
-	color: #333;
-	transition: all 0.5s;
+.item a.active {
+  color: rgb(5, 70, 100);
+}
+.item a:hover {
+  color: #333;
+  transition: all 0.5s;
 }

@@ -23,10 +23,6 @@ const App = () => {
             <Route path="/music" element={<Music />} />
             <Route path="/settings" element={<Settings />} />
           </Routes>
-          {/* <Routes>
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/dialogs" element={<Dialogs />} />
-        </Routes> */}
         </div>
       </div>
     </BrowserRouter>
