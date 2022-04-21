@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./Profile.module.css";
 import Posts from "./posts/Posts";
 
-const Profile = () => {
+const Profile = (props) => {
   return (
     <div>
       <div className={classes.top_img}>
@@ -24,7 +24,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
-      <Posts />
+      <Posts posts={props.posts} />
     </div>
   );
 };
