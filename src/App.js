@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes, BrowserRouter } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Dialogs from "./components/dialogs/Dialogs";
 import Header from "./components/header/Header";
@@ -11,32 +11,35 @@ import Settings from "./components/settings/Settings";
 
 const App = (props) => {
   return (
-    <BrowserRouter>
-      <div className="app-wrapper">
-        <Header />
-        <Navbar />
-        <div className="app-content">
-          <Routes>
-            <Route
-              path="/profile"
-              element={<Profile posts={props.state.profilePage.posts} />}
-            />
-            <Route
-              path="/dialogs"
-              element={
-                <Dialogs
-                  dialogs={props.state.dialogsPage.dialogs}
-                  messages={props.state.dialogsPage  .messages}
-                />
-              }
-            />
-            <Route path="/news" element={<News />} />
-            <Route path="/music" element={<Music />} />
-            <Route path="/settings" element={<Settings />} />
-          </Routes>
-        </div>
+    <div className="app-wrapper">
+      <Header />
+      <Navbar />
+      <div className="app-content">
+        <Routes>
+          <Route
+            path="/profile"
+            element={
+              <Profile
+                posts={props.state.profilePage.posts}
+                addPost={props.addPost}
+              />
+            }
+          />
+          <Route
+            path="/dialogs"
+            element={
+              <Dialogs
+                dialogs={props.state.dialogsPage.dialogs}
+                messages={props.state.dialogsPage.messages}
+              />
+            }
+          />
+          <Route path="/news" element={<News />} />
+          <Route path="/music" element={<Music />} />
+          <Route path="/settings" element={<Settings />} />
+        </Routes>
       </div>
-    </BrowserRouter>
+    </div>
   );
 };
 
