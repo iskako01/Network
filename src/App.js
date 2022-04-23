@@ -22,6 +22,8 @@ const App = (props) => {
               <Profile
                 posts={props.state.profilePage.posts}
                 addPost={props.addPost}
+                newTextPost={props.state.profilePage.newTextPost}
+                updateNewPostText={props.updateNewPostText}
               />
             }
           />
