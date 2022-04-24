@@ -39,33 +39,32 @@ let store = {
       ],
     },
   },
+  _rerenderEntireTree() {
+    console.log("State change");
+  },
 
   getState() {
     return this._state;
   },
 
-  _rerenderEntireTree() {
-    console.log("State change");
-  },
+  dispatch(action) {
+    if (action.type === "ADD-POST") {
+      let newPost = {
+        id: "3",
+        message: this._state.profilePage.newTextPost,
+        likesCount: 0,
+      };
 
-  addPost() {
-    let newPost = {
-      id: "3",
-      message: this._state.profilePage.newTextPost,
-      likesCount: 0,
-    };
+      if (this._state.profilePage.newTextPost !== "") {
+        this._state.profilePage.posts.push(newPost);
+        this._state.profilePage.newTextPost = "";
+      }
 
-    if (this._state.profilePage.newTextPost !== "") {
-      this._state.profilePage.posts.push(newPost);
-      this._state.profilePage.newTextPost = "";
+      this._rerenderEntireTree(this._state);
+    } else if (action.type === "UPDATE-NEW-POST-TEXT") {
+      this._state.profilePage.newTextPost = action.newText;
+      this._rerenderEntireTree(this._state);
     }
-
-    this._rerenderEntireTree(this._state);
-  },
-
-  updateNewPostText(newText) {
-    this._state.profilePage.newTextPost = newText;
-    this._rerenderEntireTree(this._state);
   },
 
   subscribe(observer) {
