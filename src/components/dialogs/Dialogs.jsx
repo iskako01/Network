@@ -5,7 +5,7 @@ import classes from "./Dialogs.module.css";
 import {
   addMessageActionCreator,
   updateNewMeesageTextActionCreator,
-} from "../../redux/state";
+} from "../../redux/redusers/dialogsReduser";
 
 const Dialogs = (props) => {
   const dialogsElement = props.dialogs.map((d) => {
@@ -15,8 +15,6 @@ const Dialogs = (props) => {
   const messagesElement = props.messages.map((m) => {
     return <Message message={m.message} />;
   });
-
-  let newMessageElement = React.createRef();
 
   const sendMessage = () => {
     props.dispatch(addMessageActionCreator());
