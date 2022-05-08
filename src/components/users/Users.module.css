@@ -1,0 +1,25 @@
+.avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50px;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #3434;
+}
+.info {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.follow {
+  margin-right: 12px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
