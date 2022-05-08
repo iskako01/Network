@@ -12,7 +12,7 @@ let initialState = {
       name: "Toshka",
     },
   ],
- 
+
   messages: [
     {
       id: "1",
@@ -34,14 +34,18 @@ const dialogsReduser = (state = initialState, action) => {
         message: state.newTextMessage,
       };
 
-      if (state.newTextMessage !== "") {
-        state.messages.push(newMessage);
-        state.newTextMessage = "";
-      }
-      return state;
+      return {
+        ...state,
+        newTextMessage: "",
+        messages: [...state.messages, newMessage],
+      };
+
     case UPDATE_NEW_MESSAGE_TEXT:
-      state.newTextMessage = action.newMessage;
-      return state;
+      return {
+        ...state,
+        newTextMessage: action.newMessage,
+      };
+
     default:
       return state;
   }
