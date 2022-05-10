@@ -1,31 +1,17 @@
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET_USERS";
+const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
+const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT";
 
 let initialState = {
-  users: [
-    // {
-    //   id: 1,
-    //   followed: false,
-    //   photoUrl:
-    //     "https://miro.medium.com/max/2560/1*Zea8TZCxKyLsIuNCjPv5UQ.jpeg",
-    //   fullname: "Alisher",
-    //   status: "I like it",
-    //   location: { city: "Almaty", country: "Kazakchstan" },
-    // },
-    // {
-    //   id: 2,
-    //   followed: true,
-    //   photoUrl:
-    //     "https://i.pinimg.com/originals/35/d9/ea/35d9eaf49c5a954b62e5930f56c452b5.jpg",
-    //   fullname: "Toshka",
-    //   status: "Tbilisi",
-    //   location: { city: "Almaty", country: "Kazakchstan" },
-    // },
-  ],
+  users: [],
+  pageSize: 4,
+  totalUsersCount: 0,
+  currentPage: 1,
 };
 
-const profileReduser = (state = initialState, action) => {
+const usersReduser = (state = initialState, action) => {
   switch (action.type) {
     case FOLLOW: {
       return {
@@ -52,7 +38,19 @@ const profileReduser = (state = initialState, action) => {
     case SET_USERS: {
       return {
         ...state,
-        users: [...state.users, ...action.users],
+        users: [...action.users],
+      };
+    }
+    case SET_TOTAL_USERS_COUNT: {
+      return {
+        ...state,
+        totalUsersCount: action.totalUsersCount,
+      };
+    }
+    case SET_CURRENT_PAGE: {
+      return {
+        ...state,
+        currentPage: action.currentPage,
       };
     }
     default:
@@ -72,5 +70,13 @@ export const setUsersActionCreator = (users) => ({
   type: SET_USERS,
   users,
 });
+export const setTotalUsersCountActionCreator = (totalUsersCount) => ({
+  type: SET_TOTAL_USERS_COUNT,
+  totalUsersCount,
+});
+export const setCurrentPageActionCreator = (currentPage) => ({
+  type: SET_CURRENT_PAGE,
+  currentPage,
+});
 
-export default profileReduser;
+export default usersReduser;
