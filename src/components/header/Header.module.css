@@ -1,11 +1,18 @@
-.header{
-	grid-area: header;
-	background-color: rgba(6, 0, 15, 0.643);
+.header {
+  grid-area: header;
+  background-color: rgba(6, 0, 15, 0.643);
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
 }
-.header img{
-	width:65px;
-	height: 65px;
-	border-radius:50%;
-	align-items: center;
-	margin:0 0 0 10px ;
+.header img {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  align-items: center;
+  margin: 0 0 0 10px;
+}
+.loginBlog a {
+  color: #fff;
+  text-decoration: none;
 }
