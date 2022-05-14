@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import axios from "axios";
 import Users from "./Users";
 import Loader from "../common/preloader/Loader";
+import { getUsers } from "../../api/api";
 
 import {
   follow,
@@ -16,28 +17,21 @@ import {
 class UsersContainer extends React.Component {
   componentDidMount() {
     this.props.isLoading(true);
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`
-      )
-      .then((response) => {
-        this.props.setUsers(response.data.items);
-        this.props.setTotalUsersCount(response.data.totalCount);
-        this.props.isLoading(false);
-      });
+    getUsers(this.props.currentPage, this.props.pageSize).then((data) => {
+      this.props.setUsers(data.items);
+      this.props.setTotalUsersCount(data.totalCount);
+      this.props.isLoading(false);
+    });
   }
 
   onPageChanged = (p) => {
     this.props.setCurrentPage(p);
     this.props.isLoading(true);
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`
-      )
-      .then((response) => {
-        this.props.setUsers(response.data.items);
-        this.props.isLoading(false);
-      });
+
+    getUsers(p, this.props.pageSize).then((data) => {
+      this.props.setUsers(data.items);
+      this.props.isLoading(false);
+    });
   };
 
   render() {
