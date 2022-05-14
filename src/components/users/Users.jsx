@@ -3,8 +3,6 @@ import React from "react";
 import classes from "./Users.module.css";
 import userPhoto from "../../assets/img/noname.jpeg";
 import { NavLink } from "react-router-dom";
-import { follow, unfollow } from "../../api/api";
-import axios from "axios";
 
 const Users = (props) => {
   let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
@@ -46,13 +44,7 @@ const Users = (props) => {
                 <button
                   disabled={props.disable.some((id) => id === u.id)}
                   onClick={() => {
-                    props.buttonDisable(true, u.id);
-                    unfollow(u.id).then((data) => {
-                      if (data.resultCode === 0) {
-                        props.unfollow(u.id);
-                      }
-                      props.buttonDisable(false, u.id);
-                    });
+                    props.unfollow(u.id);
                   }}
                 >
                   Unfollow
@@ -61,13 +53,7 @@ const Users = (props) => {
                 <button
                   disabled={props.disable.some((id) => id === u.id)}
                   onClick={() => {
-                    props.buttonDisable(true, u.id);
-                    follow(u.id).then((data) => {
-                      if (data.resultCode === 0) {
-                        props.follow(u.id);
-                      }
-                      props.buttonDisable(false, u.id);
-                    });
+                    props.follow(u.id);
                   }}
                 >
                   Follow

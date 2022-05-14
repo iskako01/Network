@@ -2,21 +2,19 @@ import React from "react";
 import Profile from "./Profile";
 import { connect } from "react-redux";
 import axios from "axios";
-import Loader from "../common/preloader/Loader";
 import { isLoading } from "../../redux/redusers/usersReduser";
-import { setUserProfile } from "../../redux/redusers/profileReduser";
+import { getUserProfile } from "../../redux/redusers/profileReduser";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
-    // this.props.isLoading(true);
     let userId = this.props.router.params.userId;
-    axios
-      .get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-      .then((response) => {
-        console.log(response.data);
-        this.props.setUserProfile(response.data);
-      });
+    this.props.getUserProfile(userId);
+    // axios
+    //   .get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
+    //   .then((response) => {
+    //     this.props.setUserProfile(response.data);
+    //   });
   }
   render() {
     return <Profile {...this.props} userProfile={this.props.userProfile} />;
@@ -42,6 +40,5 @@ function withRouter(Component) {
 }
 
 export default connect(mapStateToProps, {
-  isLoading,
-  setUserProfile,
+  getUserProfile,
 })(withRouter(ProfileContainer));

@@ -1,3 +1,5 @@
+import { usersApi } from "../../api/api";
+
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET_USERS";
@@ -76,11 +78,11 @@ const usersReduser = (state = initialState, action) => {
   }
 };
 
-export const follow = (userId) => ({
+export const followSuccess = (userId) => ({
   type: FOLLOW,
   userId,
 });
-export const unfollow = (userId) => ({
+export const unfollowSuccess = (userId) => ({
   type: UNFOLLOW,
   userId,
 });
@@ -105,5 +107,36 @@ export const buttonDisable = (disable, userId) => ({
   disable,
   userId,
 });
+
+//Thunk
+
+export const getUsers = (currentPage, pageSize) => (dispatch) => {
+  dispatch(isLoading(true));
+  usersApi.getUsers(currentPage, pageSize).then((data) => {
+    dispatch(setUsers(data.items));
+    dispatch(setTotalUsersCount(data.totalCount));
+    dispatch(isLoading(false));
+  });
+};
+
+export const follow = (userId) => (dispatch) => {
+  dispatch(buttonDisable(true, userId));
+  usersApi.follow(userId).then((data) => {
+    if (data.resultCode === 0) {
+      dispatch(followSuccess(userId));
+    }
+    dispatch(buttonDisable(false, userId));
+  });
+};
+
+export const unfollow = (userId) => (dispatch) => {
+  dispatch(buttonDisable(true, userId));
+  usersApi.unfollow(userId).then((data) => {
+    if (data.resultCode === 0) {
+      dispatch(unfollowSuccess(userId));
+    }
+    dispatch(buttonDisable(false, userId));
+  });
+};
 
 export default usersReduser;
