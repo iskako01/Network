@@ -12,6 +12,7 @@ import {
   setCurrentPage,
   setTotalUsersCount,
   isLoading,
+  buttonDisable,
 } from "../../redux/redusers/usersReduser";
 
 class UsersContainer extends React.Component {
@@ -40,12 +41,14 @@ class UsersContainer extends React.Component {
         {this.props.loading ? <Loader /> : null}
         <Users
           users={this.props.users}
+          disable={this.props.disable}
           totalUsersCount={this.props.totalUsersCount}
           pageSize={this.props.pageSize}
           currentPage={this.props.currentPage}
           onPageChanged={this.onPageChanged}
           unfollow={this.props.unfollow}
           follow={this.props.follow}
+          buttonDisable={this.props.buttonDisable}
         />
       </>
     );
@@ -56,9 +59,11 @@ const mapStateToProps = (state) => {
   return {
     users: state.usersPage.users,
     loading: state.usersPage.loading,
+    disable: state.usersPage.disable,
     pageSize: state.usersPage.pageSize,
     totalUsersCount: state.usersPage.totalUsersCount,
     currentPage: state.usersPage.currentPage,
+    buttonDisable: state.usersPage.buttonDisable,
   };
 };
 export default connect(mapStateToProps, {
@@ -68,4 +73,5 @@ export default connect(mapStateToProps, {
   setCurrentPage,
   setTotalUsersCount,
   isLoading,
+  buttonDisable,
 })(UsersContainer);

@@ -4,6 +4,7 @@ const SET_USERS = "SET_USERS";
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT";
 const IS_LOADING = "IS_LOADING";
+const BUTTON_DISABLE = "BUTTON_DISABLE";
 
 let initialState = {
   users: [],
@@ -11,6 +12,7 @@ let initialState = {
   totalUsersCount: 0,
   currentPage: 1,
   loading: false,
+  disable: [],
 };
 
 const usersReduser = (state = initialState, action) => {
@@ -61,6 +63,14 @@ const usersReduser = (state = initialState, action) => {
         loading: action.loading,
       };
     }
+    case BUTTON_DISABLE: {
+      return {
+        ...state,
+        disable: action.disable
+          ? [...state.disable, action.userId]
+          : state.disable.filter((d) => d !== action.userId),
+      };
+    }
     default:
       return state;
   }
@@ -89,6 +99,11 @@ export const setCurrentPage = (currentPage) => ({
 export const isLoading = (loading) => ({
   type: IS_LOADING,
   loading,
+});
+export const buttonDisable = (disable, userId) => ({
+  type: BUTTON_DISABLE,
+  disable,
+  userId,
 });
 
 export default usersReduser;
