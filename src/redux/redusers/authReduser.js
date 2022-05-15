@@ -1,5 +1,7 @@
+import { authApi } from "../../api/api";
 const SET_AUTH_USERS_DATA = "SET_AUTH_USERS_DATA";
 const IS_LOADING = "IS_LOADING";
+const AUTH_ME = "AUTH_ME";
 
 let initialState = {
   userId: null,
@@ -24,6 +26,12 @@ const authReduser = (state = initialState, action) => {
         loading: action.loading,
       };
     }
+    case AUTH_ME: {
+      return {
+        ...state,
+        isAuth: action.isAuth,
+      };
+    }
 
     default:
       return state;
@@ -38,5 +46,16 @@ export const isLoading = (loading) => ({
   type: IS_LOADING,
   loading,
 });
+
+//Thunk
+export const getAuthUserData = () => (dispatch) => {
+  dispatch(isLoading(true));
+  authApi.isAuth().then((data) => {
+    if (data.resultCode === 0) {
+      dispatch(setAuthUserData(data.data.id, data.data.email, data.data.login));
+    }
+  });
+  dispatch(isLoading(false));
+};
 
 export default authReduser;

@@ -29,6 +29,8 @@ export const profileApi = {
   },
 };
 
-export const isAuth = () => {
-  return instance.get(`auth/me`).then((response) => response.data);
+export const authApi = {
+  isAuth() {
+    return instance.get(`auth/me`).then((response) => response.data);
+  },
 };
