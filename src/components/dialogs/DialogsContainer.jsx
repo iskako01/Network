@@ -7,10 +7,10 @@ import {
   updateNewMeesageTextActionCreator,
 } from "../../redux/redusers/dialogsReduser";
 
-
 const mapStateToProps = (state) => {
   return {
     dialogsPage: state.dialogsPage,
+    isAuth: state.auth.isAuth,
   };
 };
 const mapDispatchToProps = (dispatch) => {

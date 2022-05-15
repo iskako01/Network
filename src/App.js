@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import Login from "./components/login/Login";
 import DialogsContainer from "./components/dialogs/DialogsContainer";
 import HeaderContainer from "./components/header/HeaderContainer";
 import Navbar from "./components/navbar/Navbar";
@@ -17,6 +18,7 @@ const App = () => {
       <Navbar />
       <div className="app-content">
         <Routes>
+          <Route path="/login" element={<Login />} />
           <Route path="/profile/:userId" element={<ProfileContainer />} />
           <Route path="/dialogs" element={<DialogsContainer />} />
           <Route path="/news" element={<News />} />
