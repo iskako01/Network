@@ -51,11 +51,11 @@ const dialogsReduser = (state = initialState, action) => {
   }
 };
 
-export const addMessageActionCreator = () => ({
+export const addMessage = () => ({
   type: ADD_MESSAGE,
 });
 
-export const updateNewMeesageTextActionCreator = (message) => ({
+export const updateNewMeesageText = (message) => ({
   type: UPDATE_NEW_MESSAGE_TEXT,
   newMessage: message,
 });

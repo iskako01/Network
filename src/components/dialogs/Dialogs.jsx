@@ -13,11 +13,11 @@ const Dialogs = (props) => {
   });
 
   const onSendMessage = () => {
-    props.sendMessage();
+    props.addMessage();
   };
   const updateMessage = (e) => {
     let message = e.target.value;
-    props.updateMessage(message);
+    props.updateNewMeesageText(message);
   };
 
   return (

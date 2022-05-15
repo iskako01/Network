@@ -1,8 +1,8 @@
 import React from "react";
 import classes from "./Settings.module.css";
 
-const News = () => {
-  return;
+const Settings = () => {
+  return <div className="">settings</div>;
 };
 
-export default News;
+export default Settings;
