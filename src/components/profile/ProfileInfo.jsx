@@ -7,15 +7,20 @@ const ProfileInfo = (props) => {
   if (!props.userProfile) {
     return <Loader />;
   }
+
   return (
     <div>
       <div className={classes.top_img}>
         <img src="https://media-be.chewy.com/wp-content/uploads/2019/07/05151036/bringing-home-a-pug-1024x563.jpg" />
       </div>
+
       <div className={classes.profile}>
         <div className={classes.avatar}>
           <img src={props.userProfile.photos.small} />
-          <ProfileStatus status={"Hellow i am status"} />
+          <ProfileStatus
+            status={props.status}
+            updateStatusProfile={props.updateStatusProfile}
+          />
           <div className={classes.aboutMe}>{props.userProfile.aboutMe}</div>
         </div>
 
@@ -23,6 +28,7 @@ const ProfileInfo = (props) => {
           <div className={classes.title}>
             <h3>{props.userProfile.fullName}</h3>
           </div>
+
           <div className={classes.descriptio}>
             <div>facebook: {props.userProfile.contacts.facebook}</div>
             <div>twitter: {props.userProfile.contacts.twitter}</div>
