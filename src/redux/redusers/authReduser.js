@@ -46,6 +46,10 @@ export const isLoading = (loading) => ({
   type: IS_LOADING,
   loading,
 });
+// export const setLoginData = (loginData) => ({
+//   type: LOGIN,
+//   loginData,
+// });
 
 //Thunk
 export const getAuthUserData = () => (dispatch) => {
@@ -56,6 +60,23 @@ export const getAuthUserData = () => (dispatch) => {
     }
   });
   dispatch(isLoading(false));
+};
+
+export const login = (email, password, rememberMe) => (dispatch) => {
+  debugger;
+  authApi.login(email, password, rememberMe).then((data) => {
+    if (data.resultCode === 0) {
+      dispatch(getAuthUserData());
+    }
+  });
+};
+
+export const logout = () => (dispatch) => {
+  authApi.logout().then((data) => {
+    if (data.resultCode === 0) {
+      dispatch(getAuthUserData());
+    }
+  });
 };
 
 export default authReduser;
