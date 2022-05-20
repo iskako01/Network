@@ -1,5 +1,5 @@
 import React from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { connect } from "react-redux";
 import classes from "./Login.module.css";
 import { login } from "../../redux/redusers/authReduser";
@@ -9,7 +9,9 @@ const LoginForm = (props) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    mode: "onBlur",
+  });
 
   const onSubmit = (data) => {
     props.login(data.email, data.password, data.rememberMe);
@@ -18,7 +20,12 @@ const LoginForm = (props) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
-        <input {...register("email", { required: true, maxLength: 20 })} />
+        <input
+          {...register("email", {
+            required: true,
+            maxLength: 20,
+          })}
+        />
       </div>
       {errors.email && (
         <span className={classes.error}>Email is required.</span>
@@ -40,13 +47,19 @@ const LoginForm = (props) => {
   );
 };
 
-const Login = () => {
+const Login = (props) => {
   return (
     <div className="login">
       <h2>Login</h2>
-      <LoginForm />
+
+      <LoginForm {...props} />
     </div>
   );
 };
+const mapStateToProps = (state) => {
+  return {
+    isAuth: state.auth.isAuth,
+  };
+};
 
-export default connect(null, { login })(Login);
+export default connect(mapStateToProps, { login })(Login);
