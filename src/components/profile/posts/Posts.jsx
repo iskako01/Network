@@ -4,7 +4,7 @@ import Post from "../post/Post";
 import { useForm } from "react-hook-form";
 
 const PostForm = (props) => {
-  const { register, handleSubmit } = useForm({});
+  const { register, handleSubmit, formState } = useForm({ mode: "onChange" });
 
   const onSubmit = (data) => {
     props.addPost(data.postText);
@@ -12,10 +12,12 @@ const PostForm = (props) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
-        <input {...register("postText", {})} />
+        <textarea {...register("postText", { required: true })} />
       </div>
       <div>
-        <button onClick={onsubmit}>Add Post</button>
+        <button disabled={!formState.isValid} onClick={onsubmit}>
+          Add Post
+        </button>
       </div>
     </form>
   );

@@ -5,7 +5,7 @@ import classes from "./Dialogs.module.css";
 import { useForm } from "react-hook-form";
 
 const MessageForm = (props) => {
-  const { register, handleSubmit } = useForm({});
+  const { register, handleSubmit, formState } = useForm({ mode: "onChange" });
 
   const onSubmit = (data) => {
     props.addMessage(data.message);
@@ -13,10 +13,12 @@ const MessageForm = (props) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
-        <input {...register("message", {})} />
+        <textarea {...register("message", { required: true })} />
       </div>
       <div>
-        <button onClick={onsubmit}>Send message</button>
+        <button disabled={!formState.isValid} onClick={onsubmit}>
+          Send message
+        </button>
       </div>
     </form>
   );

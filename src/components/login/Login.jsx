@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { connect } from "react-redux";
 import classes from "./Login.module.css";
 import { login } from "../../redux/redusers/authReduser";
+import { Navigate } from "react-router-dom";
 
 const LoginForm = (props) => {
   const {
@@ -48,6 +49,9 @@ const LoginForm = (props) => {
 };
 
 const Login = (props) => {
+  if (props.isAuth) {
+    return <Navigate to={"profile"} />;
+  }
   return (
     <div className="login">
       <h2>Login</h2>

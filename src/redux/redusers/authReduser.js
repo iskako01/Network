@@ -17,7 +17,6 @@ const authReduser = (state = initialState, action) => {
       return {
         ...state,
         ...action.data,
-        isAuth: true,
       };
     }
     case IS_LOADING: {
@@ -38,32 +37,29 @@ const authReduser = (state = initialState, action) => {
   }
 };
 
-export const setAuthUserData = (userId, email, login) => ({
+export const setAuthUserData = (userId, email, login, isAuth) => ({
   type: SET_AUTH_USERS_DATA,
-  data: { userId, email, login },
+  data: { userId, email, login, isAuth },
 });
 export const isLoading = (loading) => ({
   type: IS_LOADING,
   loading,
 });
-// export const setLoginData = (loginData) => ({
-//   type: LOGIN,
-//   loginData,
-// });
 
 //Thunk
 export const getAuthUserData = () => (dispatch) => {
   dispatch(isLoading(true));
   authApi.isAuth().then((data) => {
     if (data.resultCode === 0) {
-      dispatch(setAuthUserData(data.data.id, data.data.email, data.data.login));
+      dispatch(
+        setAuthUserData(data.data.id, data.data.email, data.data.login, true)
+      );
     }
   });
   dispatch(isLoading(false));
 };
 
 export const login = (email, password, rememberMe) => (dispatch) => {
-  debugger;
   authApi.login(email, password, rememberMe).then((data) => {
     if (data.resultCode === 0) {
       dispatch(getAuthUserData());
@@ -74,7 +70,7 @@ export const login = (email, password, rememberMe) => (dispatch) => {
 export const logout = () => (dispatch) => {
   authApi.logout().then((data) => {
     if (data.resultCode === 0) {
-      dispatch(getAuthUserData());
+      dispatch(setAuthUserData(null, null, null, false));
     }
   });
 };
