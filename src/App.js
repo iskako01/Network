@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import "./App.css";
 import Login from "./components/login/Login";
 import DialogsContainer from "./components/dialogs/DialogsContainer";
@@ -19,12 +20,28 @@ const App = () => {
       <div className="app-content">
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/profile/:userId" element={<ProfileContainer />} />
+          <Route path="/profile/*" element={<ProfileContainer />} />
           <Route path="/dialogs" element={<DialogsContainer />} />
           <Route path="/news" element={<News />} />
           <Route path="/music" element={<Music />} />
           <Route path="/users" element={<UsersContainer />} />
           <Route path="/settings" element={<Settings />} />
+
+          <Route
+            path="/*"
+            element={
+              <div
+                style={{
+                  margin: "50px auto",
+                  textAlign: "center",
+                  fontSize: "30px",
+                }}
+              >
+                404 Not found
+              </div>
+            }
+          />
+          <Route exact path="/" element={<Navigate to="/profile" />} />
         </Routes>
       </div>
     </div>

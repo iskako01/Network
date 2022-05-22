@@ -13,11 +13,8 @@ import { compose } from "redux";
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
-    let userId = this.props.router.params.userId;
-
-    if (!userId) {
-      userId = 23965;
-    }
+    // console.log(this.props.authorizatedUserId);
+    let userId = this.props.match ? this.props.match.params.userId : 23965;
     this.props.getUserProfile(userId);
     this.props.getStatusProfile(userId);
   }
@@ -38,6 +35,8 @@ const mapStateToProps = (state) => {
     loading: state.usersPage.loading,
     userProfile: state.profilePage.userProfile,
     status: state.profilePage.status,
+    isAuth: state.auth.isAuth,
+    authorizatedUserId: state.auth.userId,
   };
 };
 
@@ -47,5 +46,6 @@ export default compose(
     getStatusProfile,
     updateStatusProfile,
   }),
+  withAuthRedirect,
   withRouter
 )(ProfileContainer);
