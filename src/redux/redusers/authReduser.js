@@ -60,15 +60,13 @@ export const setErrorApi = (error) => ({
 
 //Thunk
 export const getAuthUserData = () => (dispatch) => {
-  dispatch(isLoading(true));
-  authApi.isAuth().then((data) => {
+  return authApi.isAuth().then((data) => {
     if (data.resultCode === 0) {
       dispatch(
         setAuthUserData(data.data.id, data.data.email, data.data.login, true)
       );
     }
   });
-  dispatch(isLoading(false));
 };
 
 export const login = (email, password, rememberMe) => (dispatch) => {
