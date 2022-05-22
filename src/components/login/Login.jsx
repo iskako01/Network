@@ -9,6 +9,7 @@ const LoginForm = (props) => {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm({
     mode: "onBlur",
@@ -16,6 +17,8 @@ const LoginForm = (props) => {
 
   const onSubmit = (data) => {
     props.login(data.email, data.password, data.rememberMe);
+
+    setError("errorApi", { message: props.errorApi });
   };
 
   return (
@@ -44,6 +47,7 @@ const LoginForm = (props) => {
       <div>
         <button type="submit">Login</button>
       </div>
+      {errors.errorApi && <div className={classes.error}>{props.errorApi}</div>}
     </form>
   );
 };
@@ -63,6 +67,7 @@ const Login = (props) => {
 const mapStateToProps = (state) => {
   return {
     isAuth: state.auth.isAuth,
+    errorApi: state.auth.errorApi,
   };
 };
 

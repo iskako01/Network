@@ -2,6 +2,7 @@ import { authApi } from "../../api/api";
 const SET_AUTH_USERS_DATA = "SET_AUTH_USERS_DATA";
 const IS_LOADING = "IS_LOADING";
 const AUTH_ME = "AUTH_ME";
+const ERROR_API = "ERROR_API";
 
 let initialState = {
   userId: null,
@@ -9,6 +10,7 @@ let initialState = {
   login: null,
   loading: false,
   isAuth: false,
+  errorApi: null,
 };
 
 const authReduser = (state = initialState, action) => {
@@ -31,6 +33,12 @@ const authReduser = (state = initialState, action) => {
         isAuth: action.isAuth,
       };
     }
+    case ERROR_API: {
+      return {
+        ...state,
+        errorApi: action.error,
+      };
+    }
 
     default:
       return state;
@@ -44,6 +52,10 @@ export const setAuthUserData = (userId, email, login, isAuth) => ({
 export const isLoading = (loading) => ({
   type: IS_LOADING,
   loading,
+});
+export const setErrorApi = (error) => ({
+  type: ERROR_API,
+  error,
 });
 
 //Thunk
@@ -63,6 +75,8 @@ export const login = (email, password, rememberMe) => (dispatch) => {
   authApi.login(email, password, rememberMe).then((data) => {
     if (data.resultCode === 0) {
       dispatch(getAuthUserData());
+    } else {
+      dispatch(setErrorApi(data.messages[0]));
     }
   });
 };
