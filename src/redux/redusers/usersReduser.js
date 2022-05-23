@@ -110,9 +110,10 @@ export const buttonDisable = (disable, userId) => ({
 
 //Thunk
 
-export const getUsers = (currentPage, pageSize) => (dispatch) => {
+export const requestUsers = (page, pageSize) => (dispatch) => {
   dispatch(isLoading(true));
-  usersApi.getUsers(currentPage, pageSize).then((data) => {
+  dispatch(setCurrentPage(page));
+  usersApi.getUsers(page, pageSize).then((data) => {
     dispatch(setUsers(data.items));
     dispatch(setTotalUsersCount(data.totalCount));
     dispatch(isLoading(false));

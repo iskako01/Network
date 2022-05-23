@@ -2,21 +2,29 @@ import React from "react";
 import { connect } from "react-redux";
 import Users from "./Users";
 import Loader from "../common/preloader/Loader";
+import {
+  getCurrentPage,
+  getDisabled,
+  getLoader,
+  getPageSize,
+  getTotalUsersCount,
+  getUsers,
+} from "../../redux/select/selectors";
 
 import {
   follow,
   unfollow,
   setCurrentPage,
-  getUsers,
+  requestUsers,
 } from "../../redux/redusers/usersReduser";
 
 class UsersContainer extends React.Component {
   componentDidMount() {
-    this.props.getUsers(this.props.currentPage, this.props.pageSize);
+    this.props.requestUsers(this.props.currentPage, this.props.pageSize);
   }
 
   onPageChanged = (pageNumber) => {
-    this.props.getUsers(pageNumber, this.props.pageSize);
+    this.props.requestUsers(pageNumber, this.props.pageSize);
   };
 
   render() {
@@ -32,26 +40,24 @@ class UsersContainer extends React.Component {
           onPageChanged={this.onPageChanged}
           unfollow={this.props.unfollow}
           follow={this.props.follow}
-
         />
       </>
     );
   }
 }
-
 const mapStateToProps = (state) => {
   return {
-    users: state.usersPage.users,
-    loading: state.usersPage.loading,
-    disable: state.usersPage.disable,
-    pageSize: state.usersPage.pageSize,
-    totalUsersCount: state.usersPage.totalUsersCount,
-    currentPage: state.usersPage.currentPage,
+    users: getUsers(state),
+    loading: getLoader(state),
+    disable: getDisabled(state),
+    pageSize: getPageSize(state),
+    totalUsersCount: getTotalUsersCount(state),
+    currentPage: getCurrentPage(state),
   };
 };
 export default connect(mapStateToProps, {
   follow,
   unfollow,
   setCurrentPage,
-  getUsers,
+  requestUsers,
 })(UsersContainer);
