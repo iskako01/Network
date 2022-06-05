@@ -59,32 +59,31 @@ export const setErrorApi = (error) => ({
 });
 
 //Thunk
-export const getAuthUserData = () => (dispatch) => {
-  return authApi.isAuth().then((data) => {
-    if (data.resultCode === 0) {
-      dispatch(
-        setAuthUserData(data.data.id, data.data.email, data.data.login, true)
-      );
-    }
-  });
+export const getAuthUserData = () => async (dispatch) => {
+  const response= await authApi.isAuth();
+
+  if (response.resultCode === 0) {
+    dispatch(
+      setAuthUserData(response.data.id, response.data.email, response.data.login, true)
+    );
+  }
 };
 
-export const login = (email, password, rememberMe) => (dispatch) => {
-  authApi.login(email, password, rememberMe).then((data) => {
-    if (data.resultCode === 0) {
-      dispatch(getAuthUserData());
-    } else {
-      dispatch(setErrorApi(data.messages[0]));
-    }
-  });
+export const login = (email, password, rememberMe) => async (dispatch) => {
+  const response= await authApi.login(email, password, rememberMe);
+
+  if (response.resultCode === 0) {
+    dispatch(getAuthUserData());
+  } else {
+    dispatch(setErrorApi(response.messages[0]));
+  }
 };
 
-export const logout = () => (dispatch) => {
-  authApi.logout().then((data) => {
-    if (data.resultCode === 0) {
-      dispatch(setAuthUserData(null, null, null, false));
-    }
-  });
+export const logout = () => async (dispatch) => {
+  const response= await authApi.logout();
+  if (response.resultCode === 0) {
+    dispatch(setAuthUserData(null, null, null, false));
+  }
 };
 
 export default authReduser;

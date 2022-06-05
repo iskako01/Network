@@ -24,11 +24,10 @@ export const initializationSuccess = () => ({
 });
 
 //Thunk
-export const initializeApp = () => (dispatch) => {
-  const res = dispatch(getAuthUserData());
-  res.then(() => {
-    dispatch(initializationSuccess());
-  });
+export const initializeApp = () => async (dispatch) => {
+  await dispatch(getAuthUserData());
+
+  dispatch(initializationSuccess());
 };
 
 export default appReduser;

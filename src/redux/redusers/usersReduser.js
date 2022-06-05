@@ -17,6 +17,15 @@ let initialState = {
   disable: [],
 };
 
+// const updateObjectInArray = (items, propName, itemId, newObj) => {
+//   items.map((i) => {
+//     if (i[propName] === itemId) {
+//       return { ...i, ...newObj };
+//     }
+//     return i;
+//   });
+// };
+
 const usersReduser = (state = initialState, action) => {
   switch (action.type) {
     case FOLLOW: {
@@ -108,36 +117,46 @@ export const buttonDisable = (disable, userId) => ({
   userId,
 });
 
+const followUnfollowFlow = (dispatch, response, userId, actionCreator) => {
+  dispatch(buttonDisable(true, userId));
+
+  if (response.resultCode === 0) {
+    dispatch(actionCreator(userId));
+  }
+
+  dispatch(buttonDisable(false, userId));
+};
+
 //Thunk
 
-export const requestUsers = (page, pageSize) => (dispatch) => {
+export const follow = (userId) => {
+  return async (dispatch) => {
+    let actionCreator = followSuccess;
+
+    const response = await usersApi.follow(userId);
+
+    followUnfollowFlow(dispatch, response, userId, actionCreator);
+  };
+};
+export const unfollow = (userId) => {
+  return async (dispatch) => {
+    let actionCreator = unfollowSuccess;
+
+    const response = await usersApi.unfollow(userId);
+
+    followUnfollowFlow(dispatch, response, userId, actionCreator);
+  };
+};
+
+export const requestUsers = (page, pageSize) => async (dispatch) => {
   dispatch(isLoading(true));
   dispatch(setCurrentPage(page));
-  usersApi.getUsers(page, pageSize).then((data) => {
-    dispatch(setUsers(data.items));
-    dispatch(setTotalUsersCount(data.totalCount));
-    dispatch(isLoading(false));
-  });
-};
 
-export const follow = (userId) => (dispatch) => {
-  dispatch(buttonDisable(true, userId));
-  usersApi.follow(userId).then((data) => {
-    if (data.resultCode === 0) {
-      dispatch(followSuccess(userId));
-    }
-    dispatch(buttonDisable(false, userId));
-  });
-};
+  const response = await usersApi.getUsers(page, pageSize);
 
-export const unfollow = (userId) => (dispatch) => {
-  dispatch(buttonDisable(true, userId));
-  usersApi.unfollow(userId).then((data) => {
-    if (data.resultCode === 0) {
-      dispatch(unfollowSuccess(userId));
-    }
-    dispatch(buttonDisable(false, userId));
-  });
+  dispatch(setUsers(response.items));
+  dispatch(setTotalUsersCount(response.totalCount));
+  dispatch(isLoading(false));
 };
 
 export default usersReduser;
