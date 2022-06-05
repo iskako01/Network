@@ -32,7 +32,7 @@ const Posts = React.memo((props) => {
     <div className={classes.posts}>
       <div className={classes.special_post}>
         <PostForm {...props} />
-
+ 
         {postElements}
       </div>
     </div>
