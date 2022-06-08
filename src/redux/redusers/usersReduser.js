@@ -10,7 +10,7 @@ const BUTTON_DISABLE = "BUTTON_DISABLE";
 
 let initialState = {
   users: [],
-  pageSize: 4,
+  pageSize: 10,
   totalUsersCount: 0,
   currentPage: 1,
   loading: false,
