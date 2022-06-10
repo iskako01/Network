@@ -1,0 +1,43 @@
+{
+  "files": {
+    "main.css": "/iskako01/Network.git/static/css/main.9a612f76.css",
+    "main.js": "/iskako01/Network.git/static/js/main.4bf40cf2.js",
+    "static/css/263.cc889c5e.chunk.css": "/iskako01/Network.git/static/css/263.cc889c5e.chunk.css",
+    "static/js/263.c402e301.chunk.js": "/iskako01/Network.git/static/js/263.c402e301.chunk.js",
+    "static/css/926.ee336d15.chunk.css": "/iskako01/Network.git/static/css/926.ee336d15.chunk.css",
+    "static/js/926.225787a2.chunk.js": "/iskako01/Network.git/static/js/926.225787a2.chunk.js",
+    "static/css/110.31d6cfe0.chunk.css": "/iskako01/Network.git/static/css/110.31d6cfe0.chunk.css",
+    "static/js/110.249d95e3.chunk.js": "/iskako01/Network.git/static/js/110.249d95e3.chunk.js",
+    "static/css/376.31d6cfe0.chunk.css": "/iskako01/Network.git/static/css/376.31d6cfe0.chunk.css",
+    "static/js/376.15f1c52c.chunk.js": "/iskako01/Network.git/static/js/376.15f1c52c.chunk.js",
+    "static/css/89.31d6cfe0.chunk.css": "/iskako01/Network.git/static/css/89.31d6cfe0.chunk.css",
+    "static/js/89.bbc6a080.chunk.js": "/iskako01/Network.git/static/js/89.bbc6a080.chunk.js",
+    "static/css/537.77297827.chunk.css": "/iskako01/Network.git/static/css/537.77297827.chunk.css",
+    "static/js/537.4eef23a7.chunk.js": "/iskako01/Network.git/static/js/537.4eef23a7.chunk.js",
+    "static/css/684.eee9bddb.chunk.css": "/iskako01/Network.git/static/css/684.eee9bddb.chunk.css",
+    "static/js/684.3aab3fd3.chunk.js": "/iskako01/Network.git/static/js/684.3aab3fd3.chunk.js",
+    "static/js/787.9ce9f379.chunk.js": "/iskako01/Network.git/static/js/787.9ce9f379.chunk.js",
+    "static/js/896.d17bb92d.chunk.js": "/iskako01/Network.git/static/js/896.d17bb92d.chunk.js",
+    "static/media/loader.svg": "/iskako01/Network.git/static/media/loader.02a92c73f27419f33ffd99f1d5fa22c9.svg",
+    "index.html": "/iskako01/Network.git/index.html",
+    "main.9a612f76.css.map": "/iskako01/Network.git/static/css/main.9a612f76.css.map",
+    "main.4bf40cf2.js.map": "/iskako01/Network.git/static/js/main.4bf40cf2.js.map",
+    "263.cc889c5e.chunk.css.map": "/iskako01/Network.git/static/css/263.cc889c5e.chunk.css.map",
+    "263.c402e301.chunk.js.map": "/iskako01/Network.git/static/js/263.c402e301.chunk.js.map",
+    "926.ee336d15.chunk.css.map": "/iskako01/Network.git/static/css/926.ee336d15.chunk.css.map",
+    "926.225787a2.chunk.js.map": "/iskako01/Network.git/static/js/926.225787a2.chunk.js.map",
+    "110.249d95e3.chunk.js.map": "/iskako01/Network.git/static/js/110.249d95e3.chunk.js.map",
+    "376.15f1c52c.chunk.js.map": "/iskako01/Network.git/static/js/376.15f1c52c.chunk.js.map",
+    "89.bbc6a080.chunk.js.map": "/iskako01/Network.git/static/js/89.bbc6a080.chunk.js.map",
+    "537.77297827.chunk.css.map": "/iskako01/Network.git/static/css/537.77297827.chunk.css.map",
+    "537.4eef23a7.chunk.js.map": "/iskako01/Network.git/static/js/537.4eef23a7.chunk.js.map",
+    "684.eee9bddb.chunk.css.map": "/iskako01/Network.git/static/css/684.eee9bddb.chunk.css.map",
+    "684.3aab3fd3.chunk.js.map": "/iskako01/Network.git/static/js/684.3aab3fd3.chunk.js.map",
+    "787.9ce9f379.chunk.js.map": "/iskako01/Network.git/static/js/787.9ce9f379.chunk.js.map",
+    "896.d17bb92d.chunk.js.map": "/iskako01/Network.git/static/js/896.d17bb92d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9a612f76.css",
+    "static/js/main.4bf40cf2.js"
+  ]
+}

@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/263.cc889c5e.chunk.css","mappings":"AAAA,wBACE,YAAa,CACb,6BAA8B,CAC9B,YACF","sources":["components/dialogs/Dialogs.module.css"],"sourcesContent":[".dialogs {\r\n  display: grid;\r\n  grid-template-columns: 4fr 8fr;\r\n  padding: 10px;\r\n}\r\n"],"names":[],"sourceRoot":""}
