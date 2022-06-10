@@ -23,7 +23,7 @@ const UsersContainer = React.lazy(() =>
   import("./components/users/UsersContainer")
 );
 
-class App extends React.Component { 
+class App extends React.Component {
   componentDidMount() {
     this.props.initializeApp();
   }
@@ -50,6 +50,7 @@ class App extends React.Component {
                 path="/*"
                 element={
                   <div
+                    className="error404"
                     style={{
                       margin: "50px auto",
                       textAlign: "center",

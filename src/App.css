@@ -12,3 +12,7 @@
   grid-area: content;
   background-color: rgba(6, 0, 15, 0.236);
 }
+.error404 {
+  margin: 0 auto;
+  text-align: center;
+}

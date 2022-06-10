@@ -3,6 +3,7 @@ import { profileApi } from "../../api/api";
 const ADD_POST = "ADD-POST";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
 const SET_STATUS_PROFILE = "SET_STATUS_PROFILE";
+const SAVE_PHOTO_SUCCESS = "SAVE_PHOTO_SUCCESS";
 
 let initialState = {
   posts: [
@@ -17,7 +18,7 @@ let initialState = {
       likesCount: 4,
     },
   ],
-  userProfile: null,
+  profile: null,
   status: "",
 };
 
@@ -39,13 +40,19 @@ const profileReduser = (state = initialState, action) => {
     case SET_USER_PROFILE: {
       return {
         ...state,
-        userProfile: action.userProfile,
+        profile: action.profile,
       };
     }
     case SET_STATUS_PROFILE: {
       return {
         ...state,
         status: action.status,
+      };
+    }
+    case SAVE_PHOTO_SUCCESS: {
+      return {
+        ...state,
+        profile: { ...state.profile, photos: action.photos },
       };
     }
 
@@ -59,19 +66,23 @@ export const addPost = (postText) => ({
   postText,
 });
 
-export const setUserProfile = (userProfile) => ({
+export const setUserProfile = (profile) => ({
   type: SET_USER_PROFILE,
-  userProfile,
+  profile,
 });
 export const setStatusProfile = (status) => ({
   type: SET_STATUS_PROFILE,
   status,
 });
+export const savePhotoSuccess = (photos) => ({
+  type: SAVE_PHOTO_SUCCESS,
+  photos,
+});
 
 //Thunk
 
 export const getUserProfile = (userId) => async (dispatch) => {
-  let response = await profileApi.userProfile(userId);
+  let response = await profileApi.getProfile(userId);
   dispatch(setUserProfile(response));
 };
 export const getStatusProfile = (userId) => async (dispatch) => {
@@ -82,6 +93,12 @@ export const updateStatusProfile = (status) => async (dispatch) => {
   let response = await profileApi.updateStatusProfile(status);
   if (response.resultCode === 0) {
     dispatch(setStatusProfile(status));
+  }
+};
+export const savePhoto = (file) => async (dispatch) => {
+  let response = await profileApi.savePhoto(file);
+  if (response.resultCode === 0) {
+    dispatch(savePhotoSuccess(response.photos));
   }
 };
 

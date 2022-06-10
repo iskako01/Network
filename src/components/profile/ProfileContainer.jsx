@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Profile from "./Profile";
 import { connect } from "react-redux";
-import { isLoading } from "../../redux/redusers/usersReduser";
+import { savePhoto } from "../../redux/redusers/profileReduser";
 import {
   getUserProfile,
   getStatusProfile,
@@ -18,14 +18,16 @@ const ProfileContainer = (props) => {
       : props.authorizatedUserId;
     props.getUserProfile(userId);
     props.getStatusProfile(userId);
-  }, []);
+  }, [props.match]);
 
   return (
     <Profile
       {...props}
-      userProfile={props.userProfile}
+      isOwner={!props.match}
+      profile={props.profile}
       status={props.status}
       updateStatusProfile={props.updateStatusProfile}
+      savePhoto={props.savePhoto}
     />
   );
 };
@@ -33,7 +35,7 @@ const ProfileContainer = (props) => {
 const mapStateToProps = (state) => {
   return {
     loading: state.usersPage.loading,
-    userProfile: state.profilePage.userProfile,
+    profile: state.profilePage.profile,
     status: state.profilePage.status,
     isAuth: state.auth.isAuth,
     authorizatedUserId: state.auth.userId,
@@ -45,6 +47,7 @@ export default compose(
     getUserProfile,
     getStatusProfile,
     updateStatusProfile,
+    savePhoto,
   }),
   withAuthRedirect,
   withRouter

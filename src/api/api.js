@@ -24,7 +24,7 @@ export const usersApi = {
 };
 
 export const profileApi = {
-  userProfile(userId) {
+  getProfile(userId) {
     return instance.get(`profile/${userId}`).then((response) => response.data);
   },
   statusProfile(userId) {
@@ -36,6 +36,17 @@ export const profileApi = {
     return instance
       .put(`profile/status`, { status })
       .then((response) => response.data);
+  },
+  savePhoto(file) {
+    const formData = new FormData();
+    formData.append("image", file);
+    return instance
+      .put(`profile/photo`, formData, {
+        headers: {
+          "Content-Type": "multipart/from-data",
+        },
+      })
+      .then((response) => response.data.data);
   },
 };
 
