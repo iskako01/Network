@@ -101,5 +101,14 @@ export const savePhoto = (file) => async (dispatch) => {
     dispatch(savePhotoSuccess(response.photos));
   }
 };
+export const editProfile = (profile) => async (dispatch, getState) => {
+  const userId = getState().auth.userId;
+  let response = await profileApi.editProfile(profile);
+  if (response.resultCode === 0) {
+    dispatch(getUserProfile(userId));
+  } else {
+    return Promise.reject(response.message[0]);
+  }
+};
 
 export default profileReduser;

@@ -37,6 +37,9 @@ export const profileApi = {
       .put(`profile/status`, { status })
       .then((response) => response.data);
   },
+  editProfile(profile) {
+    return instance.put(`profile`, profile).then((response) => response.data);
+  },
   savePhoto(file) {
     const formData = new FormData();
     formData.append("image", file);

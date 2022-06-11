@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import Profile from "./Profile";
 import { connect } from "react-redux";
-import { savePhoto } from "../../redux/redusers/profileReduser";
 import {
   getUserProfile,
   getStatusProfile,
   updateStatusProfile,
+  editProfile,
+  savePhoto,
 } from "../../redux/redusers/profileReduser";
 import { withRouter } from "../../hoc/withRouter";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
@@ -28,6 +29,7 @@ const ProfileContainer = (props) => {
       status={props.status}
       updateStatusProfile={props.updateStatusProfile}
       savePhoto={props.savePhoto}
+      editProfile={props.editProfile}
     />
   );
 };
@@ -48,6 +50,7 @@ export default compose(
     getStatusProfile,
     updateStatusProfile,
     savePhoto,
+    editProfile,
   }),
   withAuthRedirect,
   withRouter
