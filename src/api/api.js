@@ -22,6 +22,13 @@ export const usersApi = {
     return instance.post(`follow/${id}`, {}).then((response) => response.data);
   },
 };
+export const securityApi = {
+  getCaptchaUrl() {
+    return instance
+      .get("security/get-captcha-url")
+      .then((response) => response.data);
+  },
+};
 
 export const profileApi = {
   getProfile(userId) {
@@ -57,9 +64,9 @@ export const authApi = {
   isAuth() {
     return instance.get(`auth/me`).then((response) => response.data);
   },
-  login(email, password, rememberMe = false) {
+  login(email, password, rememberMe = false, captcha = null) {
     return instance
-      .post(`auth/login`, { email, password, rememberMe })
+      .post(`auth/login`, { email, password, rememberMe, captcha })
       .then((response) => response.data);
   },
   logout() {

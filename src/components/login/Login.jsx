@@ -44,7 +44,16 @@ const LoginForm = (props) => {
         Remember me
         <input type="checkbox" {...register("rememberMe")} />
       </div>
+      {props.captchaUrl && <img src={props.captchaUrl} />}
+      {props.captchaUrl && (
+        <input
+          {...register("captcha", {
+            required: true,
+          })}
+        />
+      )}
       <div>
+        {" "}
         <button type="submit">Login</button>
       </div>
       {errors.errorApi && <div className={classes.error}>{props.errorApi}</div>}
@@ -67,6 +76,7 @@ const Login = (props) => {
 const mapStateToProps = (state) => {
   return {
     isAuth: state.auth.isAuth,
+    captchaUrl: state.auth.captchaUrl,
     errorApi: state.auth.errorApi,
   };
 };
