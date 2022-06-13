@@ -1,14 +1,34 @@
+import { Iuser } from "../../types/users/UserInterfase";
 import { usersApi } from "../../api/api";
 
-const FOLLOW = "FOLLOW";
-const UNFOLLOW = "UNFOLLOW";
-const SET_USERS = "SET_USERS";
-const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
-const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT";
-const IS_LOADING = "IS_LOADING";
-const BUTTON_DISABLE = "BUTTON_DISABLE";
+enum ActionTypes {
+  FOLLOW = "FOLLOW",
+  UNFOLLOW = "UNFOLLOW",
+  SET_USERS = "SET_USERS",
+  SET_CURRENT_PAGE = "SET_CURRENT_PAGE",
+  SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT",
+  IS_LOADING = "IS_LOADING",
+  BUTTON_DISABLE = "BUTTON_DISABLE",
+}
 
-let initialState = {
+// const FOLLOW = "FOLLOW";
+// const UNFOLLOW = "UNFOLLOW";
+// const SET_USERS = "SET_USERS";
+// const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
+// const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT";
+// const IS_LOADING = "IS_LOADING";
+// const BUTTON_DISABLE = "BUTTON_DISABLE";
+
+interface IuserInitialState {
+  users: Iuser[];
+  pageSize: number;
+  totalUsersCount: number;
+  currentPage: number;
+  loading: boolean;
+  disable: Array<number>;
+}
+
+let initialState: IuserInitialState = {
   users: [],
   pageSize: 10,
   totalUsersCount: 0,
@@ -17,18 +37,9 @@ let initialState = {
   disable: [],
 };
 
-// const updateObjectInArray = (items, propName, itemId, newObj) => {
-//   items.map((i) => {
-//     if (i[propName] === itemId) {
-//       return { ...i, ...newObj };
-//     }
-//     return i;
-//   });
-// };
-
 const usersReduser = (state = initialState, action) => {
   switch (action.type) {
-    case FOLLOW: {
+    case ActionTypes.FOLLOW: {
       return {
         ...state,
         users: state.users.map((u) => {
@@ -39,7 +50,7 @@ const usersReduser = (state = initialState, action) => {
         }),
       };
     }
-    case UNFOLLOW: {
+    case ActionTypes.UNFOLLOW: {
       return {
         ...state,
         users: state.users.map((u) => {
@@ -50,31 +61,31 @@ const usersReduser = (state = initialState, action) => {
         }),
       };
     }
-    case SET_USERS: {
+    case ActionTypes.SET_USERS: {
       return {
         ...state,
         users: [...action.users],
       };
     }
-    case SET_TOTAL_USERS_COUNT: {
+    case ActionTypes.SET_TOTAL_USERS_COUNT: {
       return {
         ...state,
         totalUsersCount: action.totalUsersCount,
       };
     }
-    case SET_CURRENT_PAGE: {
+    case ActionTypes.SET_CURRENT_PAGE: {
       return {
         ...state,
         currentPage: action.currentPage,
       };
     }
-    case IS_LOADING: {
+    case ActionTypes.IS_LOADING: {
       return {
         ...state,
         loading: action.loading,
       };
     }
-    case BUTTON_DISABLE: {
+    case ActionTypes.BUTTON_DISABLE: {
       return {
         ...state,
         disable: action.disable
@@ -88,31 +99,31 @@ const usersReduser = (state = initialState, action) => {
 };
 
 export const followSuccess = (userId) => ({
-  type: FOLLOW,
+  type: ActionTypes.FOLLOW,
   userId,
 });
 export const unfollowSuccess = (userId) => ({
-  type: UNFOLLOW,
+  type: ActionTypes.UNFOLLOW,
   userId,
 });
 export const setUsers = (users) => ({
-  type: SET_USERS,
+  type: ActionTypes.SET_USERS,
   users,
 });
 export const setTotalUsersCount = (totalUsersCount) => ({
-  type: SET_TOTAL_USERS_COUNT,
+  type: ActionTypes.SET_TOTAL_USERS_COUNT,
   totalUsersCount,
 });
 export const setCurrentPage = (currentPage) => ({
-  type: SET_CURRENT_PAGE,
+  type: ActionTypes.SET_CURRENT_PAGE,
   currentPage,
 });
 export const isLoading = (loading) => ({
-  type: IS_LOADING,
+  type: ActionTypes.IS_LOADING,
   loading,
 });
 export const buttonDisable = (disable, userId) => ({
-  type: BUTTON_DISABLE,
+  type: ActionTypes.BUTTON_DISABLE,
   disable,
   userId,
 });

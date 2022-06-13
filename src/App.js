@@ -24,8 +24,18 @@ const UsersContainer = React.lazy(() =>
 );
 
 class App extends React.Component {
+  catchAllUnhandledError = (promiseRejectionEvent) => {
+    alert("Some error occurred");
+  };
   componentDidMount() {
     this.props.initializeApp();
+    window.addEventListener("unhandledrejection", this.catchAllUnhandledError);
+  }
+  componentWillUnmount() {
+    window.removeEventListener(
+      "unhandledrejection",
+      this.catchAllUnhandledError
+    );
   }
   render() {
     if (!this.props.initialized) {
@@ -38,6 +48,7 @@ class App extends React.Component {
         <div className="app-content">
           <Suspense fallback={Loader}>
             <Routes>
+              <Route path="/" element={<Navigate to="/profile" />} />
               <Route path="/login" element={<Login />} />
               <Route path="/profile/*" element={<ProfileContainer />} />
               <Route path="/dialogs" element={<DialogsContainer />} />
@@ -48,18 +59,7 @@ class App extends React.Component {
 
               <Route
                 path="/*"
-                element={
-                  <div
-                    className="error404"
-                    style={{
-                      margin: "50px auto",
-                      textAlign: "center",
-                      fontSize: "30px",
-                    }}
-                  >
-                    404 Not found
-                  </div>
-                }
+                element={<div className="error404">404 Not found</div>}
               />
               <Route exact path="/" element={<Navigate to="/profile" />} />
             </Routes>

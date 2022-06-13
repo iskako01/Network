@@ -1,11 +1,17 @@
 import { getAuthUserData } from "./authReduser";
 const INITIALIZATION_SUCCESS = "INITIALIZATION_SUCCESS";
 
-let initialState = {
+export interface IinitialState {
+  userId: number | null;
+  initialized: boolean;
+}
+
+let initialState: IinitialState = {
   userId: null,
+  initialized: false,
 };
 
-const appReduser = (state = initialState, action) => {
+const appReduser = (state = initialState, action: any): IinitialState => {
   switch (action.type) {
     case INITIALIZATION_SUCCESS: {
       return {
@@ -19,12 +25,16 @@ const appReduser = (state = initialState, action) => {
   }
 };
 
-export const initializationSuccess = () => ({
+type InitializationSuccessActionType = {
+  type: typeof INITIALIZATION_SUCCESS;
+};
+
+export const initializationSuccess = (): InitializationSuccessActionType => ({
   type: INITIALIZATION_SUCCESS,
 });
 
 //Thunk
-export const initializeApp = () => async (dispatch) => {
+export const initializeApp = () => async (dispatch: any) => {
   await dispatch(getAuthUserData());
 
   dispatch(initializationSuccess());

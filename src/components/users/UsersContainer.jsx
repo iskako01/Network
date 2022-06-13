@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import { connect } from "react-redux";
 import Users from "./Users";
 import Loader from "../common/preloader/Loader";
+import Iuser from "../../types/users/UserInterfase";
 import {
   getCurrentPage,
   getDisabled,
