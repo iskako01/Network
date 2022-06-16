@@ -1,9 +1,12 @@
 import { getAuthUserData } from "./authReduser.ts";
 const INITIALIZATION_SUCCESS = "INITIALIZATION_SUCCESS";
 
-export interface IinitialState {
+interface IinitialState {
   userId: number | null;
   initialized: boolean;
+}
+interface IinitializationSuccess {
+  type: typeof INITIALIZATION_SUCCESS;
 }
 
 let initialState: IinitialState = {
@@ -25,11 +28,7 @@ const appReduser = (state = initialState, action: any): IinitialState => {
   }
 };
 
-type InitializationSuccessActionType = {
-  type: typeof INITIALIZATION_SUCCESS;
-};
-
-export const initializationSuccess = (): InitializationSuccessActionType => ({
+export const initializationSuccess = (): IinitializationSuccess => ({
   type: INITIALIZATION_SUCCESS,
 });
 

@@ -1,11 +1,13 @@
-import React from "react";
+import React, { FC } from "react";
 import { useForm } from "react-hook-form";
 import { connect } from "react-redux";
 import classes from "./Login.module.css";
 import { login } from "../../redux/redusers/authReduser.ts";
 import { Navigate } from "react-router-dom";
+import {IloginFormProps} from "../../types/components/Ilogin"
 
-const LoginForm = (props) => {
+
+const LoginForm: FC<IloginFormProps> = ({login,errorApi,captchaUrl}) => {
   const {
     register,
     handleSubmit,
@@ -15,10 +17,10 @@ const LoginForm = (props) => {
     mode: "onBlur",
   });
 
-  const onSubmit = (data) => {
-    props.login(data.email, data.password, data.rememberMe);
+  const onSubmit = (data:any) => {
+    login(data.email, data.password, data.rememberMe);
 
-    setError("errorApi", { message: props.errorApi });
+    setError("errorApi", { message: errorApi });
   };
 
   return (
@@ -44,8 +46,8 @@ const LoginForm = (props) => {
         Remember me
         <input type="checkbox" {...register("rememberMe")} />
       </div>
-      {props.captchaUrl && <img src={props.captchaUrl} />}
-      {props.captchaUrl && (
+      {captchaUrl && <img src={captchaUrl} />}
+      {captchaUrl && (
         <input
           {...register("captcha", {
             required: true,
@@ -56,20 +58,20 @@ const LoginForm = (props) => {
         {" "}
         <button type="submit">Login</button>
       </div>
-      {errors.errorApi && <div className={classes.error}>{props.errorApi}</div>}
+      {errors.errorApi && <div className={classes.error}>{errorApi}</div>}
     </form>
   );
 };
 
-const Login = (props) => {
-  if (props.isAuth) {
+const Login = ({login , isAuth, captchaUrl,errorApi}) => {
+  if (isAuth) {
     return <Navigate to={"/profile"} />;
   }
   return (
     <div className="login">
       <h2>Login</h2>
 
-      <LoginForm {...props} />
+      <LoginForm login={login} errorApi={errorApi} captchaUrl={captchaUrl} />
     </div>
   );
 };

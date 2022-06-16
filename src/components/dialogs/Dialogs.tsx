@@ -1,14 +1,14 @@
-import React from "react";
-import Dialog from "./dialog/Dialog";
-import Message from "./message/Message";
+import React, { FC } from "react";
+import Dialog from "./dialog/Dialog.tsx";
+import Message from "./message/Message.tsx";
 import classes from "./Dialogs.module.css";
 import { useForm } from "react-hook-form";
 
-const MessageForm = (props) => {
+const MessageForm = ({ addMessage }) => {
   const { register, handleSubmit, formState } = useForm({ mode: "onChange" });
 
   const onSubmit = (data) => {
-    props.addMessage(data.message);
+    addMessage(data.message);
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -24,12 +24,12 @@ const MessageForm = (props) => {
   );
 };
 
-const Dialogs = (props) => {
-  const dialogsElement = props.dialogsPage.dialogs.map((d) => {
+const Dialogs = ({ dialogsPage, addMessage }) => {
+  const dialogsElement = dialogsPage.dialogs.map((d) => {
     return <Dialog name={d.name} id={d.id} key={d.id} />;
   });
 
-  const messagesElement = props.dialogsPage.messages.map((m) => {
+  const messagesElement = dialogsPage.messages.map((m) => {
     return <Message message={m.message} key={m.id} />;
   });
 
@@ -38,7 +38,7 @@ const Dialogs = (props) => {
       <div className={classes.dialog}>{dialogsElement}</div>
       <div className={classes.messages}>
         {messagesElement}
-        <MessageForm {...props} />
+        <MessageForm addMessage={addMessage} />
       </div>
     </div>
   );

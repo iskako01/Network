@@ -1,4 +1,4 @@
-import { Iuser } from "../../types/users/UserInterfase";
+import { Iuser } from "../../types/redusers/users/UserInterfase";
 import { usersApi } from "../../api/api";
 
 enum UsersActionTypes {
@@ -9,6 +9,35 @@ enum UsersActionTypes {
   SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT",
   IS_LOADING = "IS_LOADING",
   BUTTON_DISABLE = "BUTTON_DISABLE",
+}
+interface IfollowSuccess {
+  type: UsersActionTypes.FOLLOW;
+  userId: number;
+}
+interface IunfollowSuccess {
+  type: UsersActionTypes.UNFOLLOW;
+  userId: number;
+}
+interface IsetUsers {
+  type: UsersActionTypes.SET_USERS;
+  users: Iuser[];
+}
+interface IsetTotalUsersCount {
+  type: UsersActionTypes.SET_TOTAL_USERS_COUNT;
+  totalUsersCount: number;
+}
+interface IsetCurrentPage {
+  type: UsersActionTypes.SET_CURRENT_PAGE;
+  currentPage: number;
+}
+interface IisLoading {
+  type: UsersActionTypes.IS_LOADING;
+  loading: boolean;
+}
+interface IbuttonDisable {
+  type: UsersActionTypes.BUTTON_DISABLE;
+  disable: boolean;
+  userId: number;
 }
 
 // const FOLLOW = "FOLLOW";
@@ -98,36 +127,6 @@ const usersReduser = (state = initialState, action) => {
   }
 };
 
-export interface IfollowSuccess {
-  type: UsersActionTypes.FOLLOW;
-  userId: number;
-}
-export interface IunfollowSuccess {
-  type: UsersActionTypes.UNFOLLOW;
-  userId: number;
-}
-export interface IsetUsers {
-  type: UsersActionTypes.SET_USERS;
-  users: Iuser;
-}
-export interface IsetTotalUsersCount {
-  type: UsersActionTypes.SET_TOTAL_USERS_COUNT;
-  totalUsersCount: number;
-}
-export interface IsetCurrentPage {
-  type: UsersActionTypes.SET_CURRENT_PAGE;
-  currentPage: number;
-}
-export interface IisLoading {
-  type: UsersActionTypes.IS_LOADING;
-  loading: boolean;
-}
-export interface IbuttonDisable {
-  type: UsersActionTypes.BUTTON_DISABLE;
-  disable: boolean;
-  userId: number;
-}
-
 export const followSuccess = (userId: number): IfollowSuccess => ({
   type: UsersActionTypes.FOLLOW,
   userId,
@@ -138,7 +137,7 @@ export const unfollowSuccess = (userId: number): IunfollowSuccess => ({
   userId,
 });
 
-export const setUsers = (users: Iuser): IsetUsers => ({
+export const setUsers = (users: Iuser[]): IsetUsers => ({
   type: UsersActionTypes.SET_USERS,
   users,
 });
@@ -166,7 +165,12 @@ export const buttonDisable = (disable, userId): IbuttonDisable => ({
   userId,
 });
 
-const followUnfollowFlow = (dispatch, response, userId, actionCreator) => {
+const followUnfollowFlow = (
+  dispatch: any,
+  response: any,
+  userId: number,
+  actionCreator: any
+) => {
   dispatch(buttonDisable(true, userId));
 
   if (response.resultCode === 0) {

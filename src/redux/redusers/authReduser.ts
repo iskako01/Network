@@ -14,6 +14,28 @@ type IinitialState = {
   errorApi: string | null;
   captchaUrl: string | null;
 };
+type IsLoadingActionType = {
+  type: typeof IS_LOADING;
+  loading: boolean;
+};
+type SetErrorApiActionType = {
+  type: typeof ERROR_API;
+  error: string;
+};
+type SetAuthUserDataType = {
+  userId: number | null;
+  email: string | null;
+  login: string | null;
+  isAuth: boolean;
+};
+type SetAuthUserDataActionType = {
+  type: typeof SET_AUTH_USERS_DATA;
+  data: SetAuthUserDataType;
+};
+type SetCaptchaUrlActionType = {
+  type: typeof SET_CAPTCHA_URL;
+  captchaUrl: string | null;
+};
 
 let initialState: IinitialState = {
   userId: null,
@@ -63,18 +85,6 @@ const authReduser = (state = initialState, action: any): IinitialState => {
   }
 };
 
-type SetAuthUserDataType = {
-  userId: number | null;
-  email: string | null;
-  login: string | null;
-  isAuth: boolean;
-};
-
-type SetAuthUserDataActionType = {
-  type: typeof SET_AUTH_USERS_DATA;
-  data: SetAuthUserDataType;
-};
-
 export const setAuthUserData = (
   userId: number | null,
   email: string | null,
@@ -85,30 +95,15 @@ export const setAuthUserData = (
   data: { userId, email, login, isAuth },
 });
 
-type IsLoadingActionType = {
-  type: typeof IS_LOADING;
-  loading: boolean;
-};
-
 export const isLoading = (loading: boolean): IsLoadingActionType => ({
   type: IS_LOADING,
   loading,
 });
 
-type SetErrorApiActionType = {
-  type: typeof ERROR_API;
-  error: string;
-};
-
 export const setErrorApi = (error: string): SetErrorApiActionType => ({
   type: ERROR_API,
   error,
 });
-
-type SetCaptchaUrlActionType = {
-  type: typeof SET_CAPTCHA_URL;
-  captchaUrl: string | null;
-};
 
 export const setCaptchaUrl = (captchaUrl: string): SetCaptchaUrlActionType => ({
   type: SET_CAPTCHA_URL,

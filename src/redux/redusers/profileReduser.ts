@@ -1,37 +1,32 @@
 import { profileApi } from "../../api/api";
+import {
+  ProfileType,
+  PhotosType,
+  PostsType,
+} from "../../types/redusers/profile/ProfileActionType";
 
 const ADD_POST = "ADD-POST";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
 const SET_STATUS_PROFILE = "SET_STATUS_PROFILE";
 const SAVE_PHOTO_SUCCESS = "SAVE_PHOTO_SUCCESS";
 
-type PhotosType = {
-  small: string | null;
-  large: string | null;
-};
-type PostsType = {
-  id: string;
-  message: string;
-  likesCount: number;
-};
-type ContactsType = {
-  github: string | null;
-  vk: string | null;
-  facebook: string | null;
-  instagram: string | null;
-  twitter: string | null;
-  website: string | null;
-  youtube: string | null;
-  mainLink: string | null;
-};
-type ProfileType = {
-  userId: number | null;
-  lookingForAJob: boolean;
-  lookingForAJobDescription: string | null;
-  fullName: string | null;
-  contacts: ContactsType;
+interface IaddPost {
+  type: typeof ADD_POST;
+  postText: string;
+}
+
+interface IsetUserProfile {
+  type: typeof SET_USER_PROFILE;
+  profile: ProfileType;
+}
+interface IsetStatusProfile {
+  type: typeof SET_STATUS_PROFILE;
+  status: string;
+}
+interface IsavePhotoSuccess {
+  type: typeof SAVE_PHOTO_SUCCESS;
   photos: PhotosType;
-};
+}
 
 let initialState = {
   posts: [
@@ -93,24 +88,6 @@ const profileReduser = (
   }
 };
 
-export interface IaddPost {
-  type: typeof ADD_POST;
-  postText: string;
-}
-
-export interface IsetUserProfile {
-  type: typeof SET_USER_PROFILE;
-  profile: ProfileType;
-}
-export interface IsetStatusProfile {
-  type: typeof SET_STATUS_PROFILE;
-  status: string;
-}
-export interface IsavePhotoSuccess {
-  type: typeof SAVE_PHOTO_SUCCESS;
-  photos: string;
-}
-
 export const addPost = (postText: string): IaddPost => ({
   type: ADD_POST,
   postText,
@@ -123,7 +100,7 @@ export const setStatusProfile = (status: string): IsetStatusProfile => ({
   type: SET_STATUS_PROFILE,
   status,
 });
-export const savePhotoSuccess = (photos: string): IsavePhotoSuccess => ({
+export const savePhotoSuccess = (photos: PhotosType): IsavePhotoSuccess => ({
   type: SAVE_PHOTO_SUCCESS,
   photos,
 });
