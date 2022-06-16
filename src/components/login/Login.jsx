@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { connect } from "react-redux";
 import classes from "./Login.module.css";
-import { login } from "../../redux/redusers/authReduser";
+import { login } from "../../redux/redusers/authReduser.ts";
 import { Navigate } from "react-router-dom";
 
 const LoginForm = (props) => {

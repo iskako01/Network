@@ -1,11 +1,11 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunkMiddleware from "redux-thunk";
-import dialogsReduser from "./redusers/dialogsReduser";
-import profileReduser from "./redusers/profileReduser";
-import usersReduser from "./redusers/usersReduser";
-import authReduser from "./redusers/authReduser";
-import appReduser from "./redusers/appReduser";
+import dialogsReduser from "./redusers/dialogsReduser.ts";
+import profileReduser from "./redusers/profileReduser.ts";
+import usersReduser from "./redusers/usersReduser.ts";
+import authReduser from "./redusers/authReduser.ts";
+import appReduser from "./redusers/appReduser.ts";
 
 let redusers = combineReducers({
   profilePage: profileReduser,

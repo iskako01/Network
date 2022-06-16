@@ -1,7 +1,7 @@
 import { Iuser } from "../../types/users/UserInterfase";
 import { usersApi } from "../../api/api";
 
-enum ActionTypes {
+enum UsersActionTypes {
   FOLLOW = "FOLLOW",
   UNFOLLOW = "UNFOLLOW",
   SET_USERS = "SET_USERS",
@@ -39,7 +39,7 @@ let initialState: IuserInitialState = {
 
 const usersReduser = (state = initialState, action) => {
   switch (action.type) {
-    case ActionTypes.FOLLOW: {
+    case UsersActionTypes.FOLLOW: {
       return {
         ...state,
         users: state.users.map((u) => {
@@ -50,7 +50,7 @@ const usersReduser = (state = initialState, action) => {
         }),
       };
     }
-    case ActionTypes.UNFOLLOW: {
+    case UsersActionTypes.UNFOLLOW: {
       return {
         ...state,
         users: state.users.map((u) => {
@@ -61,31 +61,31 @@ const usersReduser = (state = initialState, action) => {
         }),
       };
     }
-    case ActionTypes.SET_USERS: {
+    case UsersActionTypes.SET_USERS: {
       return {
         ...state,
         users: [...action.users],
       };
     }
-    case ActionTypes.SET_TOTAL_USERS_COUNT: {
+    case UsersActionTypes.SET_TOTAL_USERS_COUNT: {
       return {
         ...state,
         totalUsersCount: action.totalUsersCount,
       };
     }
-    case ActionTypes.SET_CURRENT_PAGE: {
+    case UsersActionTypes.SET_CURRENT_PAGE: {
       return {
         ...state,
         currentPage: action.currentPage,
       };
     }
-    case ActionTypes.IS_LOADING: {
+    case UsersActionTypes.IS_LOADING: {
       return {
         ...state,
         loading: action.loading,
       };
     }
-    case ActionTypes.BUTTON_DISABLE: {
+    case UsersActionTypes.BUTTON_DISABLE: {
       return {
         ...state,
         disable: action.disable
@@ -98,32 +98,70 @@ const usersReduser = (state = initialState, action) => {
   }
 };
 
-export const followSuccess = (userId) => ({
-  type: ActionTypes.FOLLOW,
+export interface IfollowSuccess {
+  type: UsersActionTypes.FOLLOW;
+  userId: number;
+}
+export interface IunfollowSuccess {
+  type: UsersActionTypes.UNFOLLOW;
+  userId: number;
+}
+export interface IsetUsers {
+  type: UsersActionTypes.SET_USERS;
+  users: Iuser;
+}
+export interface IsetTotalUsersCount {
+  type: UsersActionTypes.SET_TOTAL_USERS_COUNT;
+  totalUsersCount: number;
+}
+export interface IsetCurrentPage {
+  type: UsersActionTypes.SET_CURRENT_PAGE;
+  currentPage: number;
+}
+export interface IisLoading {
+  type: UsersActionTypes.IS_LOADING;
+  loading: boolean;
+}
+export interface IbuttonDisable {
+  type: UsersActionTypes.BUTTON_DISABLE;
+  disable: boolean;
+  userId: number;
+}
+
+export const followSuccess = (userId: number): IfollowSuccess => ({
+  type: UsersActionTypes.FOLLOW,
   userId,
 });
-export const unfollowSuccess = (userId) => ({
-  type: ActionTypes.UNFOLLOW,
+
+export const unfollowSuccess = (userId: number): IunfollowSuccess => ({
+  type: UsersActionTypes.UNFOLLOW,
   userId,
 });
-export const setUsers = (users) => ({
-  type: ActionTypes.SET_USERS,
+
+export const setUsers = (users: Iuser): IsetUsers => ({
+  type: UsersActionTypes.SET_USERS,
   users,
 });
-export const setTotalUsersCount = (totalUsersCount) => ({
-  type: ActionTypes.SET_TOTAL_USERS_COUNT,
+
+export const setTotalUsersCount = (
+  totalUsersCount: number
+): IsetTotalUsersCount => ({
+  type: UsersActionTypes.SET_TOTAL_USERS_COUNT,
   totalUsersCount,
 });
-export const setCurrentPage = (currentPage) => ({
-  type: ActionTypes.SET_CURRENT_PAGE,
+
+export const setCurrentPage = (currentPage: number): IsetCurrentPage => ({
+  type: UsersActionTypes.SET_CURRENT_PAGE,
   currentPage,
 });
-export const isLoading = (loading) => ({
-  type: ActionTypes.IS_LOADING,
+
+export const isLoading = (loading: boolean): IisLoading => ({
+  type: UsersActionTypes.IS_LOADING,
   loading,
 });
-export const buttonDisable = (disable, userId) => ({
-  type: ActionTypes.BUTTON_DISABLE,
+
+export const buttonDisable = (disable, userId): IbuttonDisable => ({
+  type: UsersActionTypes.BUTTON_DISABLE,
   disable,
   userId,
 });
@@ -140,8 +178,8 @@ const followUnfollowFlow = (dispatch, response, userId, actionCreator) => {
 
 //Thunk
 
-export const follow = (userId) => {
-  return async (dispatch) => {
+export const follow = (userId: number) => {
+  return async (dispatch: any) => {
     let actionCreator = followSuccess;
 
     const response = await usersApi.follow(userId);
@@ -149,8 +187,8 @@ export const follow = (userId) => {
     followUnfollowFlow(dispatch, response, userId, actionCreator);
   };
 };
-export const unfollow = (userId) => {
-  return async (dispatch) => {
+export const unfollow = (userId: number) => {
+  return async (dispatch: any) => {
     let actionCreator = unfollowSuccess;
 
     const response = await usersApi.unfollow(userId);
@@ -159,15 +197,16 @@ export const unfollow = (userId) => {
   };
 };
 
-export const requestUsers = (page, pageSize) => async (dispatch) => {
-  dispatch(isLoading(true));
-  dispatch(setCurrentPage(page));
+export const requestUsers =
+  (page: number, pageSize: number) => async (dispatch: any) => {
+    dispatch(isLoading(true));
+    dispatch(setCurrentPage(page));
 
-  const response = await usersApi.getUsers(page, pageSize);
+    const response = await usersApi.getUsers(page, pageSize);
 
-  dispatch(setUsers(response.items));
-  dispatch(setTotalUsersCount(response.totalCount));
-  dispatch(isLoading(false));
-};
+    dispatch(setUsers(response.items));
+    dispatch(setTotalUsersCount(response.totalCount));
+    dispatch(isLoading(false));
+  };
 
 export default usersReduser;

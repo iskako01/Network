@@ -5,7 +5,7 @@ const AUTH_ME = "AUTH_ME";
 const ERROR_API = "ERROR_API";
 const SET_CAPTCHA_URL = "SET_CAPTCHA_URL";
 
-interface IinitialState {
+type IinitialState = {
   userId: number | null;
   email: string | null;
   login: string | null;
@@ -13,7 +13,7 @@ interface IinitialState {
   isAuth: boolean;
   errorApi: string | null;
   captchaUrl: string | null;
-}
+};
 
 let initialState: IinitialState = {
   userId: null,
@@ -110,9 +110,7 @@ type SetCaptchaUrlActionType = {
   captchaUrl: string | null;
 };
 
-export const setCaptchaUrl = (
-  captchaUrl: string | null
-): SetCaptchaUrlActionType => ({
+export const setCaptchaUrl = (captchaUrl: string): SetCaptchaUrlActionType => ({
   type: SET_CAPTCHA_URL,
   captchaUrl,
 });
@@ -134,12 +132,7 @@ export const getAuthUserData = () => async (dispatch: any) => {
 };
 
 export const login =
-  (
-    email: string,
-    password: string,
-    rememberMe: boolean,
-    captcha: string | null
-  ) =>
+  (email: string, password: string, rememberMe: boolean, captcha: any) =>
   async (dispatch: any) => {
     const response = await authApi.login(email, password, rememberMe, captcha);
 

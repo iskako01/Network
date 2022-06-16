@@ -7,7 +7,7 @@ import {
   updateStatusProfile,
   editProfile,
   savePhoto,
-} from "../../redux/redusers/profileReduser";
+} from "../../redux/redusers/profileReduser.ts";
 import { withRouter } from "../../hoc/withRouter";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { compose } from "redux";

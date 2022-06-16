@@ -1,6 +1,20 @@
 const ADD_MESSAGE = "ADD-MESSAGE";
 
-let initialState = {
+interface Idialogs {
+  id: string;
+  name: string;
+}
+interface Imessages {
+  id: string;
+  message: string;
+}
+
+interface IinitialState {
+  dialogs: Idialogs[];
+  messages: Imessages[];
+}
+
+let initialState: IinitialState = {
   dialogs: [
     {
       id: "1",
@@ -24,7 +38,7 @@ let initialState = {
   ],
 };
 
-const dialogsReduser = (state = initialState, action) => {
+const dialogsReduser = (state = initialState, action: any): IinitialState => {
   switch (action.type) {
     case ADD_MESSAGE:
       let newMessage = {
@@ -41,8 +55,12 @@ const dialogsReduser = (state = initialState, action) => {
       return state;
   }
 };
+type AddMessageActionType = {
+  type: typeof ADD_MESSAGE;
+  message: string;
+};
 
-export const addMessage = (message) => ({
+export const addMessage = (message: string): AddMessageActionType => ({
   type: ADD_MESSAGE,
   message,
 });

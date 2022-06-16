@@ -1,4 +1,4 @@
-import { getAuthUserData } from "./authReduser";
+import { getAuthUserData } from "./authReduser.ts";
 const INITIALIZATION_SUCCESS = "INITIALIZATION_SUCCESS";
 
 export interface IinitialState {

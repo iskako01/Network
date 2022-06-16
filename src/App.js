@@ -3,7 +3,7 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import { connect } from "react-redux";
-import { initializeApp } from "./redux/redusers/appReduser";
+import { initializeApp } from "./redux/redusers/appReduser.ts";
 import { withRouter } from "./hoc/withRouter";
 import { compose } from "redux";
 import HeaderContainer from "./components/header/HeaderContainer";
