@@ -15,6 +15,9 @@ let redusers = combineReducers({
   app: appReduser,
 });
 
+type RedusersType = typeof redusers;
+export type AppStateType = ReturnType<RedusersType>;
+
 let store = createStore(
   redusers,
   composeWithDevTools(applyMiddleware(thunkMiddleware))

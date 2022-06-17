@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import classes from "./Profile.module.css";
 import Loader from "../common/preloader/Loader";
-import ProfileStatus from "./ProfileStatus";
+import ProfileStatus from "./ProfileStatus.tsx";
 import ProfileEdit from "./ProfileEdit";
 import userPhoto from "../../assets/img/noname.jpeg";
 

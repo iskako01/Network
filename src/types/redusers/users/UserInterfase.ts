@@ -3,7 +3,7 @@ import { Iphotos } from "./UserPhotoInterface";
 export interface Iuser {
   name: string;
   id: number;
-  photos: Iphotos[];
+  photos: Iphotos;
   status: string;
   followed: boolean;
 }

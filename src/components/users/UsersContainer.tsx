@@ -1,8 +1,9 @@
 import React, { FC, useEffect } from "react";
 import { connect } from "react-redux";
-import Users from "./Users";
+import Users from "./Users.tsx";
 import Loader from "../common/preloader/Loader";
-// import Iuser from "../../types/users/UserInterfase";
+import Iuser from "../../types/users/UserInterfase";
+import {AppStateType}from "../../redux/reduxStore"
 import {
   getCurrentPage,
   getDisabled,
@@ -10,7 +11,7 @@ import {
   getPageSize,
   getTotalUsersCount,
   getUsers,
-} from "../../redux/select/selectors";
+} from "../../redux/select/selectors.ts";
 
 import {
   follow,
@@ -19,12 +20,25 @@ import {
   requestUsers,
 } from "../../redux/redusers/usersReduser.ts";
 
-const UsersContainer = (props) => {
+export interface IusersContainer{
+	users:Iuser,
+        disable:Array<number>
+        totalUsersCount: number
+        pageSize: number
+        currentPage: number
+        onPageChanged:(page:number)=>void,
+        unfollow:(userId:number)=>void
+        follow:(userId:number)=>void
+		requestUsers:(carrentPage:number,pageSize:number)=>void
+		loading: boolean
+}
+
+const UsersContainer:React.FC<IusersContainer> = (props) => {
   useEffect(() => {
     props.requestUsers(props.currentPage, props.pageSize);
   }, []);
 
-  const onPageChanged = (pageNumber) => {
+  const onPageChanged = (pageNumber:number) => {
     props.requestUsers(pageNumber, props.pageSize);
   };
 
@@ -45,7 +59,7 @@ const UsersContainer = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state:AppStateType) => {
   return {
     users: getUsers(state),
     loading: getLoader(state),

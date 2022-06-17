@@ -1,12 +1,26 @@
 import React, { useEffect, useState } from "react";
 
-const ProfileStatus = (props) => {
+
+interface IprofileStatus{
+	status: string;
+	updateStatusProfile:(status:string)=>void
+
+}
+interface IStateStatus{
+	editMode: boolean;
+	status: string;
+	setEditMode:(value:boolean)=>void
+
+}
+
+
+const ProfileStatus:React.FC<IprofileStatus> = (props) => {
   useEffect(() => {
     setStatus(props.status);
   }, [props.status]);
 
-  let [editMode, setEditMode] = useState(false);
-  let [status, setStatus] = useState(props.status);
+  let [editMode, setEditMode] = useState<boolean>(false);
+  let [status, setStatus] = useState<string>(props.status);
 
   const activateEditMode = () => {
     setEditMode(true);

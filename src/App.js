@@ -20,7 +20,7 @@ const News = React.lazy(() => import("./components/news/News"));
 const Settings = React.lazy(() => import("./components/settings/Settings"));
 const Login = React.lazy(() => import("./components/login/Login.tsx"));
 const UsersContainer = React.lazy(() =>
-  import("./components/users/UsersContainer")
+  import("./components/users/UsersContainer.tsx")
 );
 
 class App extends React.Component {

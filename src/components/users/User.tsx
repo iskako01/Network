@@ -3,18 +3,27 @@ import React from "react";
 import classes from "./Users.module.css";
 import userPhoto from "../../assets/img/noname.jpeg";
 import { NavLink } from "react-router-dom";
+import {Iuser} from "../../types/redusers/users/UserInterfase"
 
-const User = (props) => {
+
+export interface IuserProps{
+	user:Iuser,
+	unfollow:(userId:number)=>void,
+	follow:(userId:number)=>void,
+	disable:Array<number>
+}
+
+const User:React.FC<IuserProps> = ({user,unfollow,follow,disable}) => {
   return (
     <div>
       <div className={classes.container}>
         <div className={classes.follow}>
           <div>
-            <NavLink to={"./../profile/" + props.user.id}>
+            <NavLink to={"./../profile/" + user.id}>
               <img
                 src={
-                  props.user.photos.small !== null
-                    ? props.user.photos.small
+                  user.photos.small !== null
+                    ? user.photos.small
                     : userPhoto
                 }
                 className={classes.avatar}
@@ -23,20 +32,20 @@ const User = (props) => {
           </div>
 
           <div className={classes.btn}>
-            {props.user.followed ? (
+            {user.followed ? (
               <button
-                disabled={props.disable.some((id) => id === props.user.id)}
+                disabled={disable.some((id:number) => id === user.id)}
                 onClick={() => {
-                  props.unfollow(props.user.id);
+                  unfollow(user.id);
                 }}
               >
                 Unfollow
               </button>
             ) : (
               <button
-                disabled={props.disable.some((id) => id === props.user.id)}
+                disabled={disable.some((id:number) => id === user.id)}
                 onClick={() => {
-                  props.follow(props.user.id);
+                  follow(user.id);
                 }}
               >
                 Follow
@@ -47,8 +56,8 @@ const User = (props) => {
 
         <div className={classes.info}>
           <div className="">
-            <div className="">{props.user.name}</div>
-            <div className="">{props.user.status}</div>
+            <div className="">{user.name}</div>
+            <div className="">{user.status}</div>
           </div>
 
           <div className="">
