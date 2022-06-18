@@ -1,21 +1,37 @@
 import React from "react";
 import classes from "./Profile.module.css";
-import { useForm } from "react-hook-form";
+import { useForm,Resolver } from "react-hook-form";
+import {ProfileType,ContactsType} from "../../types/redusers/profile/ProfileActionType"
 // import Contacts from "."
-const Contacts = ({ contactTitle, contactValue }) => {
-  return (
-    <div>
-      {contactTitle} : {contactValue}
-    </div>
-  );
-};
+// const Contacts = ({ contactTitle, contactValue }) => {
+//   return (
+//     <div>
+//       {contactTitle} : {contactValue}
+//     </div>
+//   );
+// };
 
-const ProfileEdit = (props) => {
+interface IprofileEdit{
+	profile:ProfileType
+	// defaultChecked:boolean;
+
+}
+type FormValue={
+	fullName:string 
+	lookingForAJob:string 
+	lookingForAJobDescription:string 
+	aboutMe:string 
+	contacts:ContactsType
+	defaultChecked:boolean;
+	defaultValue:string
+}
+
+const ProfileEdit:React.FC<IprofileEdit> = (props) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<FormValue>({
     mode: "onBlur",
   });
 
@@ -36,7 +52,7 @@ const ProfileEdit = (props) => {
           {...register("lookingForAJob", { required: false })}
           type="checkbox"
           name="lookingForAJob"
-          defaultValue={props.profile.lookingForAJob}
+          defaultChecked={props.profile.lookingForAJob}
         />
       </div>
 

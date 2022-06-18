@@ -38,7 +38,10 @@ let initialState: IinitialState = {
   ],
 };
 
-const dialogsReduser = (state = initialState, action: any): IinitialState => {
+const dialogsReduser = (
+  state = initialState,
+  action: AddMessageActionType
+): IinitialState => {
   switch (action.type) {
     case ADD_MESSAGE:
       let newMessage = {

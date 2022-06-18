@@ -6,13 +6,6 @@ interface IprofileStatus{
 	updateStatusProfile:(status:string)=>void
 
 }
-interface IStateStatus{
-	editMode: boolean;
-	status: string;
-	setEditMode:(value:boolean)=>void
-
-}
-
 
 const ProfileStatus:React.FC<IprofileStatus> = (props) => {
   useEffect(() => {

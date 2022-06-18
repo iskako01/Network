@@ -6,14 +6,14 @@ import { connect } from "react-redux";
 import { initializeApp } from "./redux/redusers/appReduser.ts";
 import { withRouter } from "./hoc/withRouter";
 import { compose } from "redux";
-import HeaderContainer from "./components/header/HeaderContainer";
+import HeaderContainer from "./components/header/HeaderContainer.tsx";
 import Navbar from "./components/navbar/Navbar";
 import Loader from "./components/common/preloader/Loader";
 const DialogsContainer = React.lazy(() =>
   import("./components/dialogs/DialogsContainer")
 );
 const ProfileContainer = React.lazy(() =>
-  import("./components/profile/ProfileContainer")
+  import("./components/profile/ProfileContainer.tsx")
 );
 const Music = React.lazy(() => import("./components/music/Music"));
 const News = React.lazy(() => import("./components/news/News"));

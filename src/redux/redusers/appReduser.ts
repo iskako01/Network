@@ -1,3 +1,4 @@
+import { Dispatch } from "redux";
 import { getAuthUserData } from "./authReduser.ts";
 const INITIALIZATION_SUCCESS = "INITIALIZATION_SUCCESS";
 
@@ -33,10 +34,11 @@ export const initializationSuccess = (): IinitializationSuccess => ({
 });
 
 //Thunk
-export const initializeApp = () => async (dispatch: any) => {
-  await dispatch(getAuthUserData());
+export const initializeApp =
+  () => async (dispatch: Dispatch<IinitializationSuccess>) => {
+    await dispatch(getAuthUserData());
 
-  dispatch(initializationSuccess());
-};
+    dispatch(initializationSuccess());
+  };
 
 export default appReduser;

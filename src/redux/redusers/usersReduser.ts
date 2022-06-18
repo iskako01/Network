@@ -1,5 +1,7 @@
 import { Iuser } from "../../types/redusers/users/UserInterfase";
 import { usersApi } from "../../api/api";
+import { Dispatch } from "redux";
+import { AppStateType } from "../reduxStore";
 
 enum UsersActionTypes {
   FOLLOW = "FOLLOW",
@@ -10,35 +12,44 @@ enum UsersActionTypes {
   IS_LOADING = "IS_LOADING",
   BUTTON_DISABLE = "BUTTON_DISABLE",
 }
-interface IfollowSuccess {
+type IfollowSuccess = {
   type: UsersActionTypes.FOLLOW;
   userId: number;
-}
-interface IunfollowSuccess {
+};
+type IunfollowSuccess = {
   type: UsersActionTypes.UNFOLLOW;
   userId: number;
-}
-interface IsetUsers {
+};
+type IsetUsers = {
   type: UsersActionTypes.SET_USERS;
   users: Iuser[];
-}
-interface IsetTotalUsersCount {
+};
+type IsetTotalUsersCount = {
   type: UsersActionTypes.SET_TOTAL_USERS_COUNT;
   totalUsersCount: number;
-}
-interface IsetCurrentPage {
+};
+type IsetCurrentPage = {
   type: UsersActionTypes.SET_CURRENT_PAGE;
   currentPage: number;
-}
-interface IisLoading {
+};
+type IisLoading = {
   type: UsersActionTypes.IS_LOADING;
   loading: boolean;
-}
-interface IbuttonDisable {
+};
+type IbuttonDisable = {
   type: UsersActionTypes.BUTTON_DISABLE;
   disable: boolean;
   userId: number;
-}
+};
+
+type ActionsType =
+  | IfollowSuccess
+  | IunfollowSuccess
+  | IsetUsers
+  | IsetTotalUsersCount
+  | IsetCurrentPage
+  | IisLoading
+  | IbuttonDisable;
 
 // const FOLLOW = "FOLLOW";
 // const UNFOLLOW = "UNFOLLOW";
@@ -48,14 +59,14 @@ interface IbuttonDisable {
 // const IS_LOADING = "IS_LOADING";
 // const BUTTON_DISABLE = "BUTTON_DISABLE";
 
-interface IuserInitialState {
+type IuserInitialState = {
   users: Iuser[];
   pageSize: number;
   totalUsersCount: number;
   currentPage: number;
   loading: boolean;
   disable: Array<number>;
-}
+};
 
 let initialState: IuserInitialState = {
   users: [],
@@ -66,7 +77,7 @@ let initialState: IuserInitialState = {
   disable: [],
 };
 
-const usersReduser = (state = initialState, action) => {
+const usersReduser = (state = initialState, action: ActionsType) => {
   switch (action.type) {
     case UsersActionTypes.FOLLOW: {
       return {
@@ -166,10 +177,10 @@ export const buttonDisable = (disable, userId): IbuttonDisable => ({
 });
 
 const followUnfollowFlow = (
-  dispatch: any,
+  dispatch: DispatchType,
   response: any,
   userId: number,
-  actionCreator: any
+  actionCreator: (userId: number) => ActionsType
 ) => {
   dispatch(buttonDisable(true, userId));
 
@@ -182,8 +193,11 @@ const followUnfollowFlow = (
 
 //Thunk
 
+type GetStateType = () => AppStateType;
+type DispatchType = Dispatch<ActionsType>;
+
 export const follow = (userId: number) => {
-  return async (dispatch: any) => {
+  return async (dispatch: DispatchType, getState: GetStateType) => {
     let actionCreator = followSuccess;
 
     const response = await usersApi.follow(userId);
@@ -192,7 +206,7 @@ export const follow = (userId: number) => {
   };
 };
 export const unfollow = (userId: number) => {
-  return async (dispatch: any) => {
+  return async (dispatch: DispatchType, getState: GetStateType) => {
     let actionCreator = unfollowSuccess;
 
     const response = await usersApi.unfollow(userId);
@@ -202,7 +216,8 @@ export const unfollow = (userId: number) => {
 };
 
 export const requestUsers =
-  (page: number, pageSize: number) => async (dispatch: any) => {
+  (page: number, pageSize: number) =>
+  async (dispatch: DispatchType, getState: GetStateType) => {
     dispatch(isLoading(true));
     dispatch(setCurrentPage(page));
 
