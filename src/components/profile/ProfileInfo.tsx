@@ -1,27 +1,27 @@
 import React, { useState } from "react";
 import classes from "./Profile.module.css";
 import Loader from "../common/preloader/Loader";
-import ProfileStatus from "./ProfileStatus.tsx";
-import ProfileEdit from "./ProfileEdit.tsx";
+import ProfileStatus from "./ProfileStatus";
+import ProfileEdit from "./ProfileEdit";
 import userPhoto from "../../assets/img/noname.jpeg";
-import {ProfileType} from "../../types/redusers/profile/ProfileActionType"
+import { ProfileType } from "../../types/redusers/profile/ProfileActionType";
 
-interface IprofileInfo{
-profile:ProfileType;
-isOwner:boolean
-status:string
-savePhoto:(file:number)=>void; 
-editProfile:(data)=>void
-updateStatusProfile:(status:string)=>void
-toProfileEdit:()=>void
+interface IprofileInfo {
+  profile: ProfileType;
+  isOwner: boolean;
+  status: string;
+  savePhoto: (file: number) => void;
+  editProfile: (data) => void;
+  updateStatusProfile: (status: string) => void;
+  toProfileEdit: () => void;
 }
-interface IprofileData{
-profile:ProfileType;
-isOwner:boolean
-toProfileEdit:()=>void
+interface IprofileData {
+  profile: ProfileType;
+  isOwner: boolean;
+  toProfileEdit: () => void;
 }
 
-const ProfileInfo:React.FC<IprofileInfo> = (props) => {
+const ProfileInfo: React.FC<IprofileInfo> = (props) => {
   let [editMode, setEditMode] = useState<boolean>(false);
   if (!props.profile) {
     return <Loader />;
@@ -82,7 +82,7 @@ const Contacts = ({ contactTitle, contactValue }) => {
   );
 };
 
-const ProfileData:React.FC<IprofileData> = (props) => {
+const ProfileData: React.FC<IprofileData> = (props) => {
   return (
     <div className={classes.info}>
       <div className={classes.title}>

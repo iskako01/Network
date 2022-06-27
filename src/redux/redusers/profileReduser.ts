@@ -6,6 +6,7 @@ import {
   PhotosType,
   PostsType,
 } from "../../types/redusers/profile/ProfileActionType";
+import { ThunkAction } from "redux-thunk";
 
 const ADD_POST = "ADD-POST";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
@@ -119,35 +120,46 @@ type GetStateType = () => AppStateType;
 type DispatchType = Dispatch<ActionsType>;
 
 export const getUserProfile =
-  (userId: number) =>
-  async (dispatch: DispatchType, getState: GetStateType) => {
+  (
+    userId: number | null
+  ): ThunkAction<Promise<void>, AppStateType, unknown, ActionsType> =>
+  async (dispatch) => {
     let response = await profileApi.getProfile(userId);
     dispatch(setUserProfile(response));
   };
 export const getStatusProfile =
-  (userId: number) =>
-  async (dispatch: DispatchType, getState: GetStateType) => {
+  (
+    userId: number | null
+  ): ThunkAction<Promise<void>, AppStateType, unknown, ActionsType> =>
+  async (dispatch) => {
     let response = await profileApi.statusProfile(userId);
     dispatch(setStatusProfile(response));
   };
 export const updateStatusProfile =
-  (status: string) =>
-  async (dispatch: DispatchType, getState: GetStateType) => {
+  (
+    status: string
+  ): ThunkAction<Promise<void>, AppStateType, unknown, ActionsType> =>
+  async (dispatch) => {
     let response = await profileApi.updateStatusProfile(status);
     if (response.resultCode === 0) {
       dispatch(setStatusProfile(status));
     }
   };
 export const savePhoto =
-  (file: string) => async (dispatch: DispatchType, getState: GetStateType) => {
+  (
+    file: string
+  ): ThunkAction<Promise<void>, AppStateType, unknown, ActionsType> =>
+  async (dispatch) => {
     let response = await profileApi.savePhoto(file);
     if (response.resultCode === 0) {
       dispatch(savePhotoSuccess(response.photos));
     }
   };
 export const editProfile =
-  (profile: ProfileType) =>
-  async (dispatch: DispatchType, getState: GetStateType) => {
+  (
+    profile: ProfileType
+  ): ThunkAction<Promise<void>, AppStateType, unknown, ActionsType> =>
+  async (dispatch, getState) => {
     const userId = getState().auth.userId;
     let response = await profileApi.editProfile(profile);
     if (response.resultCode === 0) {

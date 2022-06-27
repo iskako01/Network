@@ -1,17 +1,17 @@
 import React from "react";
-import Header from "./Header.tsx";
-import { logout } from "../../redux/redusers/authReduser.ts";
+import Header from "./Header";
+import { logout } from "../../redux/redusers/authReduser";
 import { connect } from "react-redux";
 import { AppStateType } from "../../redux/reduxStore";
 
-export interface IheaderContainer{
-	loading?:boolean;
-	isAuth: boolean;
-	login:string | null
-	logout:()=>void;
+export interface IheaderContainer {
+  loading?: boolean;
+  isAuth: boolean;
+  login: string | null;
+  logout: () => void;
 }
 
-const HeaderContainer:React.FC<IheaderContainer> = (props) => {
+const HeaderContainer: React.FC<IheaderContainer> = (props) => {
   return <Header {...props} />;
 };
 

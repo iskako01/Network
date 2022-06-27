@@ -2,12 +2,11 @@ import React, { FC } from "react";
 import { useForm } from "react-hook-form";
 import { connect } from "react-redux";
 import classes from "./Login.module.css";
-import { login } from "../../redux/redusers/authReduser.ts";
+import { login } from "../../redux/redusers/authReduser";
 import { Navigate } from "react-router-dom";
-import {IloginFormProps} from "../../types/components/Ilogin"
+import { IloginFormProps } from "../../types/components/Ilogin";
 
-
-const LoginForm: FC<IloginFormProps> = ({login,errorApi,captchaUrl}) => {
+const LoginForm: FC<IloginFormProps> = ({ login, errorApi, captchaUrl }) => {
   const {
     register,
     handleSubmit,
@@ -17,7 +16,7 @@ const LoginForm: FC<IloginFormProps> = ({login,errorApi,captchaUrl}) => {
     mode: "onBlur",
   });
 
-  const onSubmit = (data:any) => {
+  const onSubmit = (data: any) => {
     login(data.email, data.password, data.rememberMe);
 
     setError("errorApi", { message: errorApi });
@@ -63,7 +62,7 @@ const LoginForm: FC<IloginFormProps> = ({login,errorApi,captchaUrl}) => {
   );
 };
 
-const Login = ({login , isAuth, captchaUrl,errorApi}) => {
+const Login = ({ login, isAuth, captchaUrl, errorApi }) => {
   if (isAuth) {
     return <Navigate to={"/profile"} />;
   }

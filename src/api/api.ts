@@ -1,7 +1,9 @@
 import axios from "axios";
-import { ProfileType } from "../types/redusers/profile/ProfileActionType";
-import { IsAuthType, LoginType, LogoutType } from "../types/api/AuthApi";
-import { FollowUnfollowType } from "../types/api/UsersApi";
+import {
+  PhotosType,
+  ProfileType,
+} from "../types/redusers/profile/ProfileActionType";
+import { IsAuthType } from "../types/api/AuthApi";
 import { Iuser } from "../types/redusers/users/UserInterfase";
 // import { GetProfileType, StatusProfileType } from "../types/api/ProfileApi";
 
@@ -18,19 +20,15 @@ const instance = axios.create({
 export const usersApi = {
   getUsers(currentPage: number, pageSize: number) {
     return instance
-      .get<Iuser[]>(`users?page=${currentPage}&count=${pageSize}`)
+      .get(`users?page=${currentPage}&count=${pageSize}`)
       .then((response) => response.data);
   },
-  unfollow(id: number) {
-    return instance
-      .delete<FollowUnfollowType>(`follow/${id}`)
-      .then((response) => response.data);
+  unfollow(id: number | null) {
+    return instance.delete(`follow/${id}`).then((response) => response.data);
   },
 
-  follow(id: number) {
-    return instance
-      .post<FollowUnfollowType>(`follow/${id}`, {})
-      .then((response) => response.data);
+  follow(id: number | null) {
+    return instance.post(`follow/${id}`, {}).then((response) => response.data);
   },
 };
 
@@ -42,43 +40,35 @@ export const securityApi = {
   },
 };
 
-export type StatusProfileType = {
-  data: {};
-  resultCode: number;
-  messages: Array<string>;
-};
-export type SavePhotoType = {
-  data: { smail: string; large: string };
+type StatusProfileType = {
   resultCode: number;
   messages: Array<string>;
 };
 
 export const profileApi = {
-  getProfile(userId: number) {
+  getProfile(userId: number | null) {
     return instance
       .get<ProfileType>(`profile/${userId}`)
       .then((response) => response.data);
   },
-  statusProfile(userId: number) {
+  statusProfile(userId: number | null) {
     return instance
-      .get<StatusProfileType>(`profile/status/${userId}`)
+      .get(`profile/status/${userId}`)
       .then((response) => response.data);
   },
   updateStatusProfile(status: string) {
     return instance
-      .put<StatusProfileType>(`profile/status`, { status })
+      .put(`profile/status`, { status })
       .then((response) => response.data);
   },
   editProfile(profile: ProfileType) {
-    return instance
-      .put<ProfileType>(`profile`, profile)
-      .then((response) => response.data);
+    return instance.put(`profile`, profile).then((response) => response.data);
   },
   savePhoto(file: any) {
     const formData = new FormData();
     formData.append("image", file);
     return instance
-      .put<SavePhotoType>(`profile/photo`, formData, {
+      .put(`profile/photo`, formData, {
         headers: {
           "Content-Type": "multipart/from-data",
         },
@@ -100,12 +90,10 @@ export const authApi = {
     captcha: string | null = null
   ) {
     return instance
-      .post<LoginType>(`auth/login`, { email, password, rememberMe, captcha })
+      .post(`auth/login`, { email, password, rememberMe, captcha })
       .then((response) => response.data);
   },
   logout() {
-    return instance
-      .delete<LogoutType>(`auth/login`)
-      .then((response) => response.data);
+    return instance.delete(`auth/login`).then((response) => response.data);
   },
 };

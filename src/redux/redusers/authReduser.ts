@@ -1,4 +1,5 @@
 import { Dispatch } from "redux";
+import { ThunkAction } from "redux-thunk";
 import { authApi, securityApi } from "../../api/api";
 import { AppStateType } from "../reduxStore";
 const SET_AUTH_USERS_DATA = "SET_AUTH_USERS_DATA";
@@ -126,7 +127,8 @@ type DispatchType = Dispatch<ActionsType>;
 
 //Thunk
 export const getAuthUserData =
-  () => async (dispatch: DispatchType, getState: GetStateType) => {
+  (): ThunkAction<Promise<void>, AppStateType, unknown, ActionsType> =>
+  async (dispatch) => {
     const response = await authApi.isAuth();
 
     if (response.resultCode === 0) {
@@ -142,8 +144,13 @@ export const getAuthUserData =
   };
 
 export const login =
-  (email: string, password: string, rememberMe: boolean, captcha: any) =>
-  async (dispatch: DispatchType, getState: GetStateType) => {
+  (
+    email: string,
+    password: string,
+    rememberMe: boolean,
+    captcha: any
+  ): ThunkAction<Promise<void>, AppStateType, unknown, ActionsType> =>
+  async (dispatch) => {
     const response = await authApi.login(email, password, rememberMe, captcha);
 
     if (response.resultCode === 0) {
@@ -164,7 +171,8 @@ export const getCaptchaUrl =
   };
 
 export const logout =
-  () => async (dispatch: DispatchType, getState: GetStateType) => {
+  (): ThunkAction<Promise<void>, AppStateType, unknown, ActionsType> =>
+  async (dispatch) => {
     const response = await authApi.logout();
     if (response.resultCode === 0) {
       dispatch(setAuthUserData(null, null, null, false));

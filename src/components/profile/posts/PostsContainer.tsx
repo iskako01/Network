@@ -1,9 +1,9 @@
 import React from "react";
-import Posts from "./Posts.tsx";
+import Posts from "./Posts";
 import { connect } from "react-redux";
 import { AppStateType } from "../../../redux/reduxStore";
 
-import { addPost } from "../../../redux/redusers/profileReduser.ts";
+import { addPost } from "../../../redux/redusers/profileReduser";
 
 const mapStateToProps = (state:AppStateType) => {
   return {

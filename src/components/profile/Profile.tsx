@@ -1,18 +1,18 @@
 import React from "react";
-import ProfileInfo from "./ProfileInfo.tsx";
-import PostsContainer from "./posts/PostsContainer.tsx";
-import {ProfileType} from "../../types/redusers/profile/ProfileActionType"
+import ProfileInfo from "./ProfileInfo";
+import PostsContainer from "./posts/PostsContainer";
+import { ProfileType } from "../../types/redusers/profile/ProfileActionType";
 
-interface Iprofile{
-	isOwner:boolean;
-	profile:ProfileType
-	status:string;
-	updateStatusProfile:()=>void;
-	savePhoto:()=>void;
-	editProfile:()=>void;
+interface Iprofile {
+  isOwner: boolean;
+  profile: ProfileType;
+  status: string;
+  updateStatusProfile: () => void;
+  savePhoto: () => void;
+  editProfile: () => void;
 }
 
-const Profile:React.FC<Iprofile> = (props) => {
+const Profile: React.FC<Iprofile> = (props) => {
   return (
     <div>
       <ProfileInfo

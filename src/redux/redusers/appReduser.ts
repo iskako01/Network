@@ -1,5 +1,6 @@
-import { Dispatch } from "redux";
-import { getAuthUserData } from "./authReduser.ts";
+import { ThunkAction } from "redux-thunk";
+import { AppStateType } from "../reduxStore";
+import { getAuthUserData } from "./authReduser";
 const INITIALIZATION_SUCCESS = "INITIALIZATION_SUCCESS";
 
 interface IinitialState {
@@ -9,6 +10,8 @@ interface IinitialState {
 interface IinitializationSuccess {
   type: typeof INITIALIZATION_SUCCESS;
 }
+
+type ActionsType = IinitializationSuccess;
 
 let initialState: IinitialState = {
   userId: null,
@@ -35,7 +38,8 @@ export const initializationSuccess = (): IinitializationSuccess => ({
 
 //Thunk
 export const initializeApp =
-  () => async (dispatch: Dispatch<IinitializationSuccess>) => {
+  (): ThunkAction<Promise<void>, AppStateType, unknown, ActionsType> =>
+  async (dispatch) => {
     await dispatch(getAuthUserData());
 
     dispatch(initializationSuccess());

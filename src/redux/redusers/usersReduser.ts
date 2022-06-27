@@ -2,6 +2,7 @@ import { Iuser } from "../../types/redusers/users/UserInterfase";
 import { usersApi } from "../../api/api";
 import { Dispatch } from "redux";
 import { AppStateType } from "../reduxStore";
+import { ThunkAction } from "redux-thunk";
 
 enum UsersActionTypes {
   FOLLOW = "FOLLOW",
@@ -196,8 +197,10 @@ const followUnfollowFlow = (
 type GetStateType = () => AppStateType;
 type DispatchType = Dispatch<ActionsType>;
 
-export const follow = (userId: number) => {
-  return async (dispatch: DispatchType, getState: GetStateType) => {
+export const follow = (
+  userId: number
+): ThunkAction<Promise<void>, AppStateType, unknown, ActionsType> => {
+  return async (dispatch) => {
     let actionCreator = followSuccess;
 
     const response = await usersApi.follow(userId);
@@ -205,8 +208,10 @@ export const follow = (userId: number) => {
     followUnfollowFlow(dispatch, response, userId, actionCreator);
   };
 };
-export const unfollow = (userId: number) => {
-  return async (dispatch: DispatchType, getState: GetStateType) => {
+export const unfollow = (
+  userId: number
+): ThunkAction<Promise<void>, AppStateType, unknown, ActionsType> => {
+  return async (dispatch) => {
     let actionCreator = unfollowSuccess;
 
     const response = await usersApi.unfollow(userId);
@@ -216,8 +221,11 @@ export const unfollow = (userId: number) => {
 };
 
 export const requestUsers =
-  (page: number, pageSize: number) =>
-  async (dispatch: DispatchType, getState: GetStateType) => {
+  (
+    page: number,
+    pageSize: number
+  ): ThunkAction<Promise<void>, AppStateType, unknown, ActionsType> =>
+  async (dispatch) => {
     dispatch(isLoading(true));
     dispatch(setCurrentPage(page));
 

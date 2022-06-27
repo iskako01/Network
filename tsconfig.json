@@ -1,0 +1,33 @@
+{ 
+    "exclude": [
+      "node_modules","build","dist", "typings","types"
+  ],
+
+  "include": [
+      "./src/**/*.ts"
+, "src/App.tsx", "src/index.js", "src/components/hoc/withAuthRedirect.js", "src/hoc/withAuthRedirect.tsx"  ],
+  "compilerOptions": {
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react"
+  },
+  "include": [
+    "src"
+  ]
+}

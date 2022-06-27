@@ -18,6 +18,8 @@ export type ContactsType = {
   mainLink: string | null;
 };
 export type ProfileType = {
+  resultCode: number;
+  message: any;
   userId: number | null;
   lookingForAJob: boolean;
   lookingForAJobDescription: string | null;

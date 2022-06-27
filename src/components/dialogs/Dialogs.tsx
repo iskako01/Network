@@ -1,6 +1,6 @@
 import React, { FC } from "react";
-import Dialog from "./dialog/Dialog.tsx";
-import Message from "./message/Message.tsx";
+import Dialog from "./dialog/Dialog";
+import Message from "./message/Message";
 import classes from "./Dialogs.module.css";
 import { useForm } from "react-hook-form";
 
